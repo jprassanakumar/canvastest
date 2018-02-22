@@ -35,21 +35,12 @@
         // We can also store this so we can reference it later without having to use a global variable.
         Desk.canvas.client.signedrequest(contextObj);
       });
-    });
-
-    function callback(msg) {
-       if (msg.status !== 200) {
-          alert("Error: " + msg.status);
-          return;
-       }
-       alert("Payload: ", msg.payload);
-    }
-                
+    });         
     
     
   </script>
   <h3 id="greeting"></h3>
   <pre id="context"></pre>
-  <a id="ctxlink" href="#">Get Context</a>
+  
 </body>
 </html>
