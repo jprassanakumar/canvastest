@@ -37,6 +37,20 @@
       });
     });         
     
+
+    var sr = Desk.canvas.client.signedrequest();
+    var url = sr.context.environment.case.url+"/api/v2/";
+    var body = {body: "This is the text for a reply to a case."};
+    Desk.canvas.client.ajax(url,
+      {client : sr.client,
+        method: 'POST',
+        data: JSON.stringify(body),
+        success : function(data) {
+        if (201 === data.status) {
+          alert("Success");
+          console.log(data);
+        }
+      }});
     
   </script>
   <h3 id="greeting"></h3>
