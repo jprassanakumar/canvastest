@@ -4,7 +4,7 @@ The **Draft Reply to Article** is a Desk.com Canvas application that creates a n
 ## I. Deploy the Application
 First, install this application by deploying the source code to your Heroku account. To deploy your application, simply click this button:
 
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https%3A%2F%2Fgithub.com%2Fdesklabs%2Fcanvas-article2kb%2Ftree%2Fmaster)
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https%3A%2F%2Fgithub.com%2Fjprassanakumar%2Fcanvastest)
 
 ## II. Create the Integration URL
 Now that you have the application on Heroku, go ahead and create the integration URL.
