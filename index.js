@@ -35,14 +35,16 @@ app.post('/', function (req, res) {
   } else {
     //res.send("authentication failed");
   };
+	res.sendFile(path.join(views, 'index.html'));
 
+	
     context = signed_req.split('.')[1];
 
-    var contextObj = JSON.parse(context);
+    var contextObj = JSON.parse(Desk.canvas.decode(context))
   	console.log( contextObj.context.user.fullName);
 
 
-  res.sendFile(path.join(views, 'index.html'));
+  
 });
 
 var port = process.env.PORT || 9000;
