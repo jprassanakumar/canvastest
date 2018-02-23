@@ -34,7 +34,12 @@ app.post('/', function (req, res) {
    // res.sendFile(path.join(views, 'index.html'));
   } else {
     //res.send("authentication failed");
-  };  
+  };
+
+    context = signed_req.split('.')[1];
+
+    var contextObj = JSON.parse(context);
+  	console.log( contextObj.context.user.fullName);
 
 
   res.sendFile(path.join(views, 'index.html'));
