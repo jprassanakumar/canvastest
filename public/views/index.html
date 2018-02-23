@@ -39,6 +39,7 @@
     
 
     var sr = Desk.canvas.client.signedrequest();
+    console.log(sr);
     var url = sr.context.environment.case.url+"/api/v2/";
     var body = {body: "This is the text for a reply to a case."};
     Desk.canvas.client.ajax(url,
