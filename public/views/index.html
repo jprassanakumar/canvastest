@@ -18,7 +18,9 @@
   <script src="https://ajax.deskapi.com/libs/desk/canvas/1.0.0/desk-canvas-all.js"></script>
   <script>
     Desk.canvas(function() {
-      Desk.canvas.client.signedrequest(function(data) {
+      var sr = Desk.canvas.client.signedrequest();
+      console.log(sr);
+      Desk.canvas.client.refreshSignedRequest(function(data) {
         // Grab the response and save it to a variable.
         var signedRequest = data.payload.response;
         // Base64-decode the second part of the signed request.
@@ -36,7 +38,7 @@
         Desk.canvas.client.signedrequest(contextObj);
       });
 
-      
+
     });         
     
 
