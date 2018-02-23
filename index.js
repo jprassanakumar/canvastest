@@ -23,7 +23,7 @@ app.post('/', function (req, res) {
   var signed_req = req.body.signed_request;
   // split request at '.'
   var hashedContext = signed_req.split('.')[0];
-  cosnole.log(hashedContext)
+  console.log(hashedContext)
   var context = signed_req.split('.')[1];
   // Sign hash with secret
   var hash = CryptoJS.HmacSHA256(context, shared); 
