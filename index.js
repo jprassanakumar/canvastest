@@ -37,11 +37,8 @@ app.post('/', function (req, res) {
   };
 	res.sendFile(path.join(views, 'index.html'));
 
-	
-    context = signed_req.split('.')[1];
 
-    var contextObj = JSON.parse(Desk.canvas.decode(context))
-  	console.log( contextObj.context.user.fullName);
+    
 
 
   
