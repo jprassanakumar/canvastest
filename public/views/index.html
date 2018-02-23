@@ -35,10 +35,8 @@
         // We can also store this so we can reference it later without having to use a global variable.
         Desk.canvas.client.signedrequest(contextObj);
       });
-    });         
-    
 
-    var sr = Desk.canvas.client.signedrequest();
+      var sr = Desk.canvas.client.signedrequest();
     console.log(sr);
     var url = sr.context.environment.case.url+"/api/v2/";
     var body = {body: "This is the text for a reply to a case."};
@@ -52,6 +50,10 @@
           console.log(data);
         }
       }});
+    });         
+    
+
+
     
   </script>
   <h3 id="greeting"></h3>
