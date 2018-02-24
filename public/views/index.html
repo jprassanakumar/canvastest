@@ -44,7 +44,7 @@
 
       $('button').click(function() {
               Desk.canvas.client.ajax(url, {
-                client: ctx.client,
+                client: contextObj.client,
                 method: 'GET',
                 success: function(rsp) {
                   console.log(rsp);
