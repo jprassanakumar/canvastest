@@ -17,16 +17,7 @@
   <!-- Include the Desk Canvas library, hosted on a CDN for your convenience -->
   <script src="https://ajax.deskapi.com/libs/desk/canvas/1.0.0/desk-canvas-all.js"></script>
   <script>
-    var express  = require('express'),
-  bodyParser = require('body-parser'),
-  app        = express(),
-  path       = require('path'),
-  CryptoJS   = require("crypto-js");
 
-  app.all('/', function (req, res, next) {
-  console.log(req.body.signed_request);
-  next() // pass control to the next handler
-});
     Desk.canvas(function() {
      Desk.canvas.client.signedrequest(function(data) {
                 console.log(data);
@@ -44,7 +35,7 @@
         var greetingElem = Desk.canvas.byId('greeting');
         greetingElem.innerHTML = 'Hi ' + contextObj.context.user.fullName + '!';
         // Using JSON.stringify here because this will look much nicer than just showing `decodedRequest`.
-        contextElem.innerHTML = JSON.stringify(contextObj, undefined, 2);
+        //contextElem.innerHTML = JSON.stringify(contextObj, undefined, 2);
         // We can also store this so we can reference it later without having to use a global variable.
         Desk.canvas.client.signedrequest(contextObj);
       });
