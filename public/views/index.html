@@ -19,9 +19,7 @@
   <script>
 
     Desk.canvas(function() {
-     Desk.canvas.client.signedrequest(function(data) {
-                console.log(data);
-                });
+     
       Desk.canvas.client.refreshSignedRequest(function(data) {
         // Grab the response and save it to a variable.
         var signedRequest = data.payload.response;
@@ -38,8 +36,32 @@
         //contextElem.innerHTML = JSON.stringify(contextObj, undefined, 2);
         // We can also store this so we can reference it later without having to use a global variable.
         Desk.canvas.client.signedrequest(contextObj);
-      });
+      
+      var url      = contextObj.context.environment.case.url + '/replies/draft'
 
+
+      $('button').click(function() {
+              Desk.canvas.client.ajax(url, {
+                client: ctx.client,
+                method: 'GET',
+                success: function(rsp) {
+                  console.log(rsp);
+                  
+                  body = {"textile": rsp.payload.body};
+                  console.log(body);
+                  url2 = window.location.href + "parse";
+                  console.log(url2);
+                  $.post(url2, body,
+                    function(data) {
+                        $("#textile_preview").html(data);
+                        $(".modal-content").show();
+                        $("button").hide();
+                      }
+                    )
+                }
+              })
+            });
+});
 
     });         
     
@@ -47,6 +69,11 @@
 
     
   </script>
+    <div class="modal-content">
+    <span class="close">&times;</span>
+    <p id="textile_preview"></p>
+  </div>
+  <button id='link'>Preview Textile</button>
   <h3 id="greeting"></h3>
   <pre id="context"></pre>
   

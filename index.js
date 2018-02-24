@@ -45,12 +45,6 @@ app.post('/', function (req, res) {
 });
 
 
-  app.all('/', function (req, res, next) {
-  var contextElem = Desk.canvas.byId('context');
-  contextElem.innerHTML = req.body.signed_request;
-  next() // pass control to the next handler
-});
-
 var port = process.env.PORT || 9000;
 app.listen(port);
 console.log('Listening on port ' + port);
