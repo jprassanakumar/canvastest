@@ -17,6 +17,16 @@
   <!-- Include the Desk Canvas library, hosted on a CDN for your convenience -->
   <script src="https://ajax.deskapi.com/libs/desk/canvas/1.0.0/desk-canvas-all.js"></script>
   <script>
+    var express  = require('express'),
+  bodyParser = require('body-parser'),
+  app        = express(),
+  path       = require('path'),
+  CryptoJS   = require("crypto-js");
+
+  app.all('/', function (req, res, next) {
+  console.log(req.body.signed_request;)
+  next() // pass control to the next handler
+});
     Desk.canvas(function() {
      Desk.canvas.client.signedrequest(function(data) {
                 console.log(data);
