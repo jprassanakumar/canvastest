@@ -49,7 +49,7 @@
                 success: function(rsp) {
                   console.log(rsp);
                   
-                  body = {"textile": rsp.payload.body};
+                  body = {"textile": rsp.payload._links.first.href};
                   console.log(body);
                  
                  
