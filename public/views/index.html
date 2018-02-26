@@ -41,21 +41,40 @@
       
       var url      = contextObj.client.targetOrigin+'/api/v2/users/27732944/groups';//contextObj.context.environment.case.url + '/replies/draft'
 
+      var userUrl      = contextObj.context.links.userUrl;//contextObj.context.environment.case.url + '/replies/draft'
 
-      $('button').click(function() {
-              Desk.canvas.client.ajax(url, {
+
+      
+              Desk.canvas.client.ajax(userUrl, {
                 client: contextObj.client,
                 method: 'GET',
                 success: function(rsp) {
                   console.log(rsp);
+                  var groupUrl=rsp.payload._links.groups.href;
+                  Desk.canvas.client.ajax(groupUrl, {
+                    client: contextObj.client,
+                    method: 'GET',
+                    success: function(rsp) {
+
+                      console.log(rsp);
+                      var userUrl=rsp.payload._embedded.entries.users.href;
+                      Desk.canvas.client.ajax(groupUrl, {
+
+                        client: contextObj.client,
+                        method: 'GET',
+                        success: function(rsp) {
+                          console.log(rsp);
+                        }
+                      });
+
+                    }
+                  });
                   
-                  body = {"textile": rsp.payload._links.first.href};
-                  console.log(body);
                  
                  
                 }
-              })
-            });
+              });
+
 });
 
     });         
