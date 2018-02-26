@@ -44,13 +44,14 @@
       var userUrl      = contextObj.context.links.userUrl;//contextObj.context.environment.case.url + '/replies/draft'
 
 
-      
+            console.log(userUrl);
               Desk.canvas.client.ajax(userUrl, {
                 client: contextObj.client,
                 method: 'GET',
                 success: function(rsp) {
                   console.log(rsp);
                   var groupUrl=rsp.payload._links.groups.href;
+                  console.log(groupUrl);
                   Desk.canvas.client.ajax(groupUrl, {
                     client: contextObj.client,
                     method: 'GET',
@@ -58,6 +59,7 @@
 
                       console.log(rsp);
                       var userUrl=rsp.payload._embedded.entries.users.href;
+                      console.log(userUrl);
                       Desk.canvas.client.ajax(groupUrl, {
 
                         client: contextObj.client,
