@@ -58,7 +58,7 @@
                     success: function(rsp) {
 
                       console.log(rsp);
-                      var userUrl=rsp.payload._embedded[0]._links.entries.users.href;
+                      var userUrl=rsp._embedded.entries[0]._links.users.href;
                       console.log(userUrl);
                       Desk.canvas.client.ajax(groupUrl, {
 
