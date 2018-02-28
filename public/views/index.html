@@ -60,12 +60,17 @@
                       console.log(rsp);
                       var userUrl=rsp.payload._embedded.entries[0]._links.users.href;
                       console.log(userUrl);
-                      Desk.canvas.client.ajax(groupUrl, {
+                      Desk.canvas.client.ajax(userUrl, {
 
                         client: contextObj.client,
                         method: 'GET',
                         success: function(rsp) {
                           console.log(rsp);
+                          var users=rsp.payload._embedded.entries;
+                          for (var i = 0; i < users.length; i++) 
+                          {
+                            console.log(users[i].email)
+                          }
                         }
                       });
 
