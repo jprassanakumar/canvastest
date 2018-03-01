@@ -12,6 +12,10 @@
     background-color: oldlace;
   }
   </style>
+
+  <link rel="stylesheet" type="text/css" href="style.css">
+    
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet">
 </head>
 <body>
   <!-- Include the Desk Canvas library, hosted on a CDN for your convenience -->
@@ -30,9 +34,10 @@
       url: "https://www.hippovideo.io/scitylana/1",
       success: function(resultData) { 
         console.log(resultData);
-        alert("Save Complete"); 
+        //alert("Save Complete"); 
       },
-      error: function() { console.log("errorrr");alert("Save Complete");  }
+      error: function() { console.log("errorrr");//alert("Save Complete");  
+    }
     });
      
       Desk.canvas.client.refreshSignedRequest(function(data) {
@@ -48,7 +53,7 @@
         var greetingElem = Desk.canvas.byId('greeting');
         greetingElem.innerHTML = 'Hi ' + contextObj.context.user.fullName + '!';
         // Using JSON.stringify here because this will look much nicer than just showing `decodedRequest`.
-        contextElem.innerHTML = JSON.stringify(contextObj, undefined, 2);
+        //contextElem.innerHTML = JSON.stringify(contextObj, undefined, 2);
         // We can also store this so we can reference it later without having to use a global variable.
         Desk.canvas.client.signedrequest(contextObj);
       
@@ -110,6 +115,31 @@
   <button id='link'>Preview Textile</button>
   <h3 id="greeting"></h3>
   <pre id="context"></pre>
+
+      <div class="fd-app-v2-wrapper">
+      <!-- <h1 class="one-liner">Lorem ipsum dolor sit ispum, -->
+      <a href="" class="how-it-works-link">How Hippo Video works?</a>
+
+      <div class="hv-fd-error-panel" style="display: none;">
+        <!--img src="error-icon.png" -->
+        <span class="hv-fd-error-text">Lorem ipsum dolor sit ispum</span>
+      </div>
+
+      <div>
+        <div class="hv-fd-lock-div" style="display: none;"><img src="lock-white.png"></div>
+        <div class="record-option-wrapper">
+          <div class="record-explainer-video-outer">
+            <a class="explainer-btn">
+            <div class="record-explainer-video-div">record <br /> explainer <br /> video</div>
+            </a>
+          </div>
+          <div class="reply-video-ticket-outer">
+            <div class="reply-video-ticket-div">reply<br />with video <br /> ticket</div>
+          </div>
+        </div>
+        <div class="customer-testimonial-div"><img src="testimonials.png" class="customer-testimonial-icon" />  GET CUSTOMER TESTIMONIAL</div>
+      </div>
+    </div>
   
 </body>
 </html>
