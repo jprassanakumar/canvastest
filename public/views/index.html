@@ -227,12 +227,7 @@ function constructVideoNode(type, jsonObj){
                 return false; 
 
     });
-    $.each(categories, function(i, category){
-      categoryHtml += categoryTemplateHtml.replace(/{{category_id}}/g, category.id)
-                        .replace(/{{attribute}}/g, categoryAttr)
-                        .replace(/{{category_name}}/g, category.name);
-
-    });
+    
     $('.hv-fd-category-dropdown').empty().append($(categoryHtml));
     $('.hv-fd-category-dropdown').prepend($('<option value="0" selected>All Categories</option>'));
     return listHtml;
