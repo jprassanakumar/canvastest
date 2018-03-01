@@ -223,7 +223,8 @@ function constructVideoNode(type, jsonObj){
       }
       count++;
       if(count>10)
-        break;
+                return false; 
+
     });
     $.each(categories, function(i, category){
       categoryHtml += categoryTemplateHtml.replace(/{{category_id}}/g, category.id)
