@@ -31,7 +31,8 @@
       success: function(resultData) { 
         console.log(resultData);
         alert("Save Complete"); 
-      }
+      },
+      error: function() { console.log("errorrr"); }
     });
      
       Desk.canvas.client.refreshSignedRequest(function(data) {
