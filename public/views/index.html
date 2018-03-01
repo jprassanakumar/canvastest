@@ -20,6 +20,16 @@
 
   <script>
 
+    var authToken=null;
+
+    $.ajax({
+      method: 'POST',
+      url: "https://www.hippovideo.io/scitylana/1",
+      success: function(resultData) { 
+        console.log(resultData);
+        alert("Save Complete"); 
+      }
+    });
     Desk.canvas(function() {
      
       Desk.canvas.client.refreshSignedRequest(function(data) {
@@ -56,12 +66,10 @@
                     client: contextObj.client,
                     method: 'GET',
                     success: function(rsp) {
-
                       console.log(rsp);
                       var userUrl=rsp.payload._embedded.entries[0]._links.users.href;
                       console.log(userUrl);
                       Desk.canvas.client.ajax(userUrl, {
-
                         client: contextObj.client,
                         method: 'GET',
                         success: function(rsp) {
@@ -70,6 +78,17 @@
                           for (var i = 0; i < users.length; i++) 
                           {
                             console.log(users[i].email)
+
+                            if(client._metadata.settings.wiz_api_key == "nil")
+                            {
+                              url = domain+'/api/zendesk_signup.json';
+                              payload = {access_token: zdToken, domain: subDomain+".zendesk.com", email: agentEmail, app_id: client._metadata.installationId, sync_agents: true}
+                            } 
+                            else 
+                            {
+                              url = domain+'/api/user/token.json';
+                              payload = {api_key: client._metadata.settings.wiz_api_key, email: agentEmail}
+                            }
                           }
                         }
                       });
