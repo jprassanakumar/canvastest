@@ -154,9 +154,8 @@ function fetchVideos(fetchAllVideos, success, error) {
   }
 
    $.ajax({
-      type: 'POST',
+      type: 'get',
       url: url,
-      data: payload,
       success: function(resultData) { populateVideoLibrary("myvideo", response['response']); }
 }).then (success, error);
   
