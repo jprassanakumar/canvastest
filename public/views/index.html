@@ -24,9 +24,10 @@
 
   <script>
 
-    var authToken=null;
+    var authToken="Y6dL8EfsLUg5uGaiyTCk";
+    var hippoDomain="https://www.hippovideo.io/";
 
-
+    clickHandling();
     Desk.canvas(function() {
 
           $.ajax({
@@ -109,7 +110,18 @@
     });         
     
 
+function clickHandling(){
+    var explainerBtn = $('.explainer-btn');
+    explainerBtn.attr('href', hippoDomain+'/video/home?authentication_token='+authToken+'&email='+this.email);
+    explainerBtn.attr('target', '_blank');
 
+    $('.how-it-works-link').attr('href', hippoDomain+'/faq.html');
+    $('.how-it-works-link').attr('target', '_blank');
+
+    // Register the bttons with click handling event
+    $('.reply-video-ticket-div').on('click', {that: this, msg:'Use the link below to record your issue'}, insertTicketVideoLink);
+    $('.customer-testimonial-div').on('click', {that: this, msg: 'Love the product? Use the link below to record a testimonial for us :)'}, insertTicketVideoLink);
+}
     
   </script>
     <div class="modal-content">
@@ -120,30 +132,81 @@
   <h3 id="greeting"></h3>
   <pre id="context"></pre>
 
-      <div class="fd-app-v2-wrapper">
-      <!-- <h1 class="one-liner">Lorem ipsum dolor sit ispum, -->
-      <a href="" class="how-it-works-link">How Hippo Video works?</a>
-
-      <div class="hv-fd-error-panel" style="display: none;">
-        <!--img src="error-icon.png" -->
-        <span class="hv-fd-error-text">Lorem ipsum dolor sit ispum</span>
+         <div class="fd-app-v2-video-list">
+      <div class="top-bar">
+        <label class="balck-label"><img src="hippo-icon.png" class="hippo-icon" />Video Library</label>
+        <label class="right"><a href="" class="hv-fd-create-video-link blue-label">Create Video</a></label>
       </div>
 
-      <div>
-        <div class="hv-fd-lock-div" style="display: none;"><img src="lock-white.png"></div>
-        <div class="record-option-wrapper">
-          <div class="record-explainer-video-outer">
-            <a class="explainer-btn">
-            <div class="record-explainer-video-div">record <br /> explainer <br /> video</div>
-            </a>
-          </div>
-          <div class="reply-video-ticket-outer">
-            <div class="reply-video-ticket-div">reply<br />with video <br /> ticket</div>
+      <div class="filter-search-bar">
+        <select class="hv-fd-category-dropdown">
+          <option value="0" selected>All Categories</option>
+        </select>
+
+        <input type="text" placeholder="Search" class="search-box hv-fd-search-video" />
+        <img src="search-icon.png">
+      </div>
+
+      <div class="hv-fd-tab">
+        <button class="hv-fd-tablinks hv-fd-myvideo-tab-link" data-tabName="myvideo" onclick="videoList(event, 'hv-fd-myvideo-container')" id="openDefault">My-Videos</button>
+        <button class="hv-fd-tablinks hv-fd-allvideo-tab-link" data-tabName="allvideo" onclick="videoList(event, 'hv-fd-myvideo-container')">All-Videos</button>
+        <!-- <div class="hv-fd-video-count" title="Videos count">0</div> -->
+      </div>
+
+      <div class="hv-fd-tabcontent" id="style-1">
+        <img src="loading.gif" class="hv-fd-loader">
+        <div class="hv-fd-myvideo-container hv-fd-video-container">
+          <div class="hv-fd-empty-video-block hv-fd-myvideo-empty" style="display:none;">
+            <div class="no-videos-found">
+              <img src="no-videos-yet.png">
+              <p class="hv-fd-info-text">No Videos Found</p>
+            </div>
           </div>
         </div>
-        <div class="customer-testimonial-div"><img src="https://testcanvastesting.herokuapp.com/views/testimonials.png" class="customer-testimonial-icon" />  GET CUSTOMER TESTIMONIAL</div>
+
+        <div class="hv-fd-allvideo-container hv-fd-video-container">
+          <div class="hv-fd-empty-video-block hv-fd-allvideo-empty" style="display:none;">
+            <div class="no-videos-found">
+              <img src="no-videos-yet.png">
+              <p class="hv-fd-info-text">No Videos Found</p>
+            </div>
+          </div>
+        </div>
       </div>
+      <div class="hv-footer" style="display:none;">GET CUSTOMER TESTIMONIAL</div>
     </div>
+
+    <script>
+      function videoList(evt, cityName) {
+          var i, tabcontent, tablinks;
+          $('.hv-fd-video-container').each(function(){
+            $(this).fadeOut();
+          });
+          $('.hv-fd-tablinks').each(function(){
+            $(this).removeClass('active');
+          });
+          $('.'+cityName).fadeIn();
+          $(evt.currentTarget).addClass('active');
+      }
+      document.getElementById("openDefault").click();
+    </script>
+    <!-- Template for video list -->
+    <script class="hv-fd-library-template" type="text/template">
+      <div class="hv-fd-video-list-row {{category_class}}">
+        <div class="video-thumb-div"><img src="{{thumb}}" /></div>
+        <div class="rhs">
+          <label class="hv-fd-video-name">{{title}}</label>
+          <label class="recorede-date">Recorded on {{created_at}}</label>
+          <label class="video-deration">{{duration}}</label>
+          <label class="hv-fd-add-reply-block"><a class="hv-fd-add-reply-link" data-ref="hv-fd-copy-ref-{{id}}">Add to reply</a></label>
+          <input type="hidden" class="hv-fd-copy-ref-{{id}} hv-fd-video-copy-url" value="{{url}}" data-thumburl="{{thumb_url}}" data-thumbimage="{{thumb}}" data-thumbtitle="{{title}}">
+        </div>
+      </div>
+    </script>
+    <!-- Template for categories -->
+    <script class="hv-fd-category-template" type="text/template">
+      <option value="{{category_id}}" {{attribute}}>{{category_name}}</option>
+    </script>
   
 </body>
 </html>
