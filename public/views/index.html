@@ -145,10 +145,12 @@ function fetchVideos(fetchAllVideos, success, error) {
   //console.log("AUHHHHH TOKEN :: ",this.authToken);
   if(fetchAllVideos){
       payload = "authentication_token="+authToken+"&email="+email+"&video_fetch_type=all";
-      url = hippoDomain+'/api/video/recent_videos.json'; // Recent videos as of now fetches all videos need to make change in rails
+      //url = hippoDomain+'/api/video/recent_videos.json'; // Recent videos as of now fetches all videos need to make change in rails
+      url='https://testcanvastesting.herokuapp.com/views/video.json';
   } else {
       payload = "authentication_token="+authToken+"&email="+email;
-      url = hippoDomain+'/api/video/recent_videos.json';
+      //url = 'hippoDomain+'/api/video/recent_videos.json'';
+      url='https://testcanvastesting.herokuapp.com/views/video.json';
   }
 
    $.ajax({
