@@ -173,7 +173,7 @@ function populateVideoLibrary(type, library){
 }
 
 function constructVideoNode(type, jsonObj){
-    var videosJson = JSON.parse(jsonObj);
+    var videosJson = (jsonObj);
     var library = videosJson.libraries;
     var categoryMapping = videosJson.category_mapping;
     var categories = videosJson.categories;
