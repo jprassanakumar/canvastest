@@ -200,6 +200,7 @@ function constructVideoNode(type, jsonObj){
         categoryMapJson[categoryMap.authoring_asset_id].push(categoryMap.video_categories_id);
       }
     });
+    var count=0;
     $.each(library, function(i, lib) {
       categoryClass = "";
       $.each(categoryMapJson[lib.id], function(j, catId){
@@ -220,6 +221,9 @@ function constructVideoNode(type, jsonObj){
                     .replace(/{{thumb_url}}/g, lib.thumbnail_url)
                     .replace(/{{category_class}}/g, categoryClass);
       }
+      count++;
+      if(count>10)
+        break;
     });
     $.each(categories, function(i, category){
       categoryHtml += categoryTemplateHtml.replace(/{{category_id}}/g, category.id)
