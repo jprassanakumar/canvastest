@@ -131,7 +131,7 @@ function handleMyVideo()
   fetchVideos(false, function(response){
           $('.hv-fd-loader').hide();
           //console.log("RECEIVED VIDEO RESPONSE :: ", response);
-          populateVideoLibrary("myvideo", response['response']);
+          
           
         }, function(error){
             console.log(error);
@@ -154,7 +154,8 @@ function fetchVideos(fetchAllVideos, success, error) {
    $.ajax({
       type: 'POST',
       url: url,
-      data: payload
+      data: payload,
+      success: function(resultData) { populateVideoLibrary("myvideo", response['response']); }
 }).then (success, error);
   
   $('.hv-fd-loader').show();
