@@ -132,7 +132,7 @@ function handleMyVideo()
           $('.hv-fd-loader').hide();
           //console.log("RECEIVED VIDEO RESPONSE :: ", response);
           populateVideoLibrary("myvideo", response['response']);
-          this.requestedForMyVideo = false;
+          
         }, function(error){
             console.log(error);
           $('.hv-fd-loader').hide();
@@ -150,7 +150,13 @@ function fetchVideos(fetchAllVideos, success, error) {
       payload = "authentication_token="+authToken+"&email="+email;
       url = hippoDomain+'/api/video/recent_videos.json';
   }
-  client.request.post(url, {body: payload}).then (success, error);
+
+   $.ajax({
+      type: 'POST',
+      url: url,
+      data: payload
+}).then (success, error);
+  
   $('.hv-fd-loader').show();
 }
 
