@@ -152,12 +152,10 @@ function fetchVideos(fetchAllVideos, success, error) {
       //url = 'hippoDomain+'/api/video/recent_videos.json'';
       url='https://testcanvastesting.herokuapp.com/views/video.json';
   }
-
-   $.ajax({
-      type: 'get',
-      url: url,
-      success: function(resultData) { populateVideoLibrary("myvideo", response['response']); }
-}).then (success, error);
+$.getJSON("https://testcanvastesting.herokuapp.com/views/video.json", function(json) {
+    populateVideoLibrary("myvideo", json);
+});
+   
   
   $('.hv-fd-loader').show();
 }
