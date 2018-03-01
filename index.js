@@ -16,12 +16,7 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(views, 'index.html'));
 });
 
-app.get('/testing', function (req, res) {
 
-    res.send('yesssss')
-
-
-}
 app.post('/', function (req, res) {
 
 	var shared = "YOUR SHARED KEY";

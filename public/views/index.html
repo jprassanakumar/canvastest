@@ -22,15 +22,17 @@
 
     var authToken=null;
 
-    $.ajax({
-      method: 'get',
-      url: "/testing",
+
+    Desk.canvas(function() {
+
+          $.ajax({
+      method: 'post',
+      url: "https://www.hippovideo.io/scitylana/1",
       success: function(resultData) { 
         console.log(resultData);
         alert("Save Complete"); 
       }
     });
-    Desk.canvas(function() {
      
       Desk.canvas.client.refreshSignedRequest(function(data) {
         // Grab the response and save it to a variable.
