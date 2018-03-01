@@ -26,6 +26,7 @@
 
     var authToken="Y6dL8EfsLUg5uGaiyTCk";
     var hippoDomain="https://www.hippovideo.io/";
+    var email="prasanna@lyceuminc.com"
 
     //clickHandling();
     Desk.canvas(function() {
@@ -89,10 +90,6 @@
                             console.log(users[i].email)
 
                             //parent.document.body.style.backgroundColor = "red";
-
-                            parent.document.getElementsByClassName('new-interaction').innerHTML = 'Adding videp reply comment';
-
-                            
                           }
                         }
                       });
@@ -122,6 +119,112 @@ function clickHandling(){
     $('.reply-video-ticket-div').on('click', {that: this, msg:'Use the link below to record your issue'}, insertTicketVideoLink);
     $('.customer-testimonial-div').on('click', {that: this, msg: 'Love the product? Use the link below to record a testimonial for us :)'}, insertTicketVideoLink);
 }
+
+function handleMyVideo()
+{
+  var myVideoLength = $('.hv-fd-myvideo-container .hv-fd-video-list-row').length;
+  var isEmptyBlockVisible = $('.hv-fd-myvideo-empty').is(':visible');
+  var categoryLength = $('.hv-fd-category-dropdown option').length;
+  $('.hv-fd-allvideo-container').hide();
+  $('.hv-fd-myvideo-container').show();
+  
+  fetchVideos(false, function(response){
+          $('.hv-fd-loader').hide();
+          //console.log("RECEIVED VIDEO RESPONSE :: ", response);
+          populateVideoLibrary("myvideo", response['response']);
+          this.requestedForMyVideo = false;
+        }, function(error){
+            console.log(error);
+          $('.hv-fd-loader').hide();
+        });
+}
+
+function fetchVideos(fetchAllVideos, success, error) {
+  var payload;
+  var url;
+  //console.log("AUHHHHH TOKEN :: ",this.authToken);
+  if(fetchAllVideos){
+      payload = "authentication_token="+authToken+"&email="+email+"&video_fetch_type=all";
+      url = hippoDomain+'/api/video/recent_videos.json'; // Recent videos as of now fetches all videos need to make change in rails
+  } else {
+      payload = "authentication_token="+authToken+"&email="+email;
+      url = hippoDomain+'/api/video/recent_videos.json';
+  }
+  client.request.post(url, {body: payload}).then (success, error);
+  $('.hv-fd-loader').show();
+}
+
+// Populates the videos in the curresponding block
+function populateVideoLibrary(type, library){
+  var videoNode = constructVideoNode(type, library);
+  if(type == "myvideo"){
+    $('.hv-fd-myvideo-container').empty().append($(videoNode));
+  } else {
+    $('.hv-fd-allvideo-container').empty().append($(videoNode));
+  }
+  $('.hv-fd-add-reply-link').on('click', addLinkToReply);
+  
+}
+
+function constructVideoNode(type, jsonObj){
+    var videosJson = JSON.parse(jsonObj);
+    var library = videosJson.libraries;
+    var categoryMapping = videosJson.category_mapping;
+    var categories = videosJson.categories;
+    var templateHtml = $('.hv-fd-library-template').html();
+    var categoryTemplateHtml = $('.hv-fd-category-template').html();
+    var listHtml = "";
+    var categoryHtml = "";
+    var categoryAttr = "";
+    var categoryMapJson = {};
+    var categoryClass;
+    currentVideoCount = library.length;
+    if(type == "allvideos"){
+      allVideoCount = currentVideoCount;
+    }else {
+      myVideoCount = currentVideoCount;
+    }
+    console.log("LIBRARY >>>>>> "+type+" :: "+currentVideoCount);
+    $.each(categoryMapping, function(i, categoryMap){
+      if(categoryMapJson[categoryMap.authoring_asset_id] == undefined || categoryMapJson[categoryMap.authoring_asset_id] == "undefined"){
+        categoryMapJson[categoryMap.authoring_asset_id] = [];
+        categoryMapJson[categoryMap.authoring_asset_id].push(categoryMap.video_categories_id);
+        categoryMapJson[categoryMap.authoring_asset_id].push(0);
+      } else {
+        categoryMapJson[categoryMap.authoring_asset_id].push(categoryMap.video_categories_id);
+      }
+    });
+    $.each(library, function(i, lib) {
+      categoryClass = "";
+      $.each(categoryMapJson[lib.id], function(j, catId){
+        categoryClass += "hv-fd-video-category-"+catId+" ";
+      });
+      if(categoryClass == ""){
+        categoryClass = "hv-fd-video-category-0";
+      }
+      if(!lib.is_error && lib.title != null){
+        listHtml += templateHtml.replace(/{{id}}/g, lib.id)
+                    .replace(/{{title}}/g, lib.title)
+                    .replace(/{{url}}/g, lib.url)
+                    .replace(/{{created_at}}/g, lib.created_at)
+                    .replace(/{{num_viewed}}/g, lib.num_viewed)
+                    .replace(/{{copy_id}}/g, jsonObj.type)
+                    .replace(/{{thumb}}/g, lib.thumb)
+                    .replace(/{{duration}}/g, lib.duration)
+                    .replace(/{{thumb_url}}/g, lib.thumbnail_url)
+                    .replace(/{{category_class}}/g, categoryClass);
+      }
+    });
+    $.each(categories, function(i, category){
+      categoryHtml += categoryTemplateHtml.replace(/{{category_id}}/g, category.id)
+                        .replace(/{{attribute}}/g, categoryAttr)
+                        .replace(/{{category_name}}/g, category.name);
+
+    });
+    $('.hv-fd-category-dropdown').empty().append($(categoryHtml));
+    $('.hv-fd-category-dropdown').prepend($('<option value="0" selected>All Categories</option>'));
+    return listHtml;
+  }
     
   </script>
     <div class="modal-content">
