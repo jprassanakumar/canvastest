@@ -211,7 +211,7 @@ function constructVideoNode(type, jsonObj){
       categoryClass = "";
       if (lib.id in categoryMapJson)
       {
-        categoryClass += "hv-fd-video-category-"+catId+" ";
+        categoryClass += "hv-fd-video-category-"+categoryMapJson[lib.id]+" ";
       }
       if(categoryClass == ""){
         categoryClass = "hv-fd-video-category-0";
