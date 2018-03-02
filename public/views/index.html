@@ -163,9 +163,12 @@ $.getJSON("https://testcanvastesting.herokuapp.com/views/video.json", function(j
 // Populates the videos in the curresponding block
 function populateVideoLibrary(type, library){
   var videoNode = constructVideoNode(type, library);
-  if(type == "myvideo"){
+  //if(type == "myvideo")
+  {
     $('.hv-fd-myvideo-container').empty().append($(videoNode));
-  } else {
+  } 
+  //else 
+  {
     $('.hv-fd-allvideo-container').empty().append($(videoNode));
   }
   $('.hv-fd-add-reply-link').on('click', addLinkToReply);
@@ -224,8 +227,9 @@ function constructVideoNode(type, jsonObj){
       count++;
       console.log(count);
       if(count>10)
-                return false; 
-
+          return false; 
+        $('.hv-fd-category-dropdown').empty().append($(categoryHtml));
+    $('.hv-fd-category-dropdown').prepend($('<option value="0" selected>All Categories</option>'));
     });
     
     $('.hv-fd-category-dropdown').empty().append($(categoryHtml));
