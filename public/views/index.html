@@ -24,7 +24,7 @@
 
   <script>
 
-    var authToken="Y6dL8EfsLUg5uGaiyTCk";
+    var authToken="";
     var hippoDomain="https://www.hippovideo.io/";
     var email="prasanna@lyceuminc.com"
 
@@ -139,7 +139,8 @@ function handleMyVideo()
         });
 }
 
-function fetchVideos(fetchAllVideos, success, error) {
+function fetchVideos(fetchAllVideos, success, error) 
+{
   var payload;
   var url;
   //console.log("AUHHHHH TOKEN :: ",this.authToken);
@@ -152,9 +153,9 @@ function fetchVideos(fetchAllVideos, success, error) {
       //url = 'hippoDomain+'/api/video/recent_videos.json'';
       url='https://testcanvastesting.herokuapp.com/views/video.json';
   }
-$.getJSON("https://testcanvastesting.herokuapp.com/views/video.json", function(json) {
-    populateVideoLibrary("myvideo", json);
-});
+  $.getJSON(url, function(json) {
+      populateVideoLibrary("myvideo", json);
+  });
    
   
   $('.hv-fd-loader').show();
