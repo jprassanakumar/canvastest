@@ -132,14 +132,7 @@
      // jQuery(this.$container).find('.create-video-link').on('click', {that: this}, this.colselibraryPanel);
       $('.go-back').on('click', {that: this}, this.closelibraryPanel);
       $('#hippo-ticket-copy-link').on('click', {that: this}, this.onCopyLink);
-      this.fetchRecentVideos = this.fetchRecentVideos.bind(this);
-      this.showTicketHelp = this.showTicketHelp.bind(this);
-      this.fetchVideoRequest = this.fetchVideoRequest.bind(this);
-      this.checkDontShow = this.checkDontShow.bind(this);
-      this.handleWidgetError = this.handleWidgetError.bind(this);
-      this.toggleTab = this.toggleTab.bind(this);
-      this.updateCount = this.updateCount.bind(this);
-      this.agentEmail = domHelper.getAgentEmail();
+      
       authorize();
 
       function authorize() 
