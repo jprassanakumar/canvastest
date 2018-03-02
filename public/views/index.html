@@ -208,7 +208,14 @@ function constructVideoNode(type, jsonObj){
     for (var i = 0; i < library.length; i++) 
     {
       lib=library[i];
-      categoryClass = "hv-fd-video-category-0";
+      categoryClass = "";
+      if (lib.id in categoryMapJson)
+      {
+        categoryClass += "hv-fd-video-category-"+catId+" ";
+      }
+      if(categoryClass == ""){
+        categoryClass = "hv-fd-video-category-0";
+      }
       listHtml += templateHtml.replace(/{{id}}/g, lib.id)
             .replace(/{{title}}/g, lib.title)
             .replace(/{{url}}/g, lib.url)
@@ -221,7 +228,7 @@ function constructVideoNode(type, jsonObj){
             .replace(/{{category_class}}/g, categoryClass);
 
     }
-    
+
     // $.each(library, function(i, lib) {
     //   categoryClass = "";
     //   $.each(categoryMapJson[lib.id], function(j, catId){
@@ -330,7 +337,7 @@ function constructVideoNode(type, jsonObj){
           <label class="hv-fd-video-name">{{title}}</label>
           <label class="recorede-date">Recorded on {{created_at}}</label>
           <label class="video-deration">{{duration}}</label>
-          <label class="hv-fd-add-reply-block"><a class="hv-fd-add-reply-link" data-ref="hv-fd-copy-ref-{{id}}">Add to reply</a></label>
+          <label class="hv-fd-add-reply-block"><a class="hv-fd-add-reply-link" data-ref="hv-fd-copy-ref-{{id}}">Copy to clipboard</a></label>
           <input type="hidden" class="hv-fd-copy-ref-{{id}} hv-fd-video-copy-url" value="{{url}}" data-thumburl="{{thumb_url}}" data-thumbimage="{{thumb}}" data-thumbtitle="{{title}}">
         </div>
       </div>
