@@ -227,7 +227,7 @@ function constructVideoNode(type, jsonObj){
       count++;
       console.log(count);
       if(count>10)
-          return false; 
+          return listHtml;
         $('.hv-fd-category-dropdown').empty().append($(categoryHtml));
     $('.hv-fd-category-dropdown').prepend($('<option value="0" selected>All Categories</option>'));
     });
