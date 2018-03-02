@@ -120,3 +120,117 @@
     	</div>
   	</div>
 </div>
+
+<script type="text/javascript">
+	
+	jQuery(this.$container).find('.show-library').on('click', {that: this}, this.fetchRecentVideos);
+      jQuery(this.$container).find('.show-library').on('click', {that: this}, this.closeVideoPanel);
+      jQuery(this.$container).find('#hippo-video-ticket-link').on('click', {that: this}, this.addUrlToReply);
+      jQuery(this.$container).find('#dont-show-again-link').on('click', {that: this}, this.dontShowHandler);
+      jQuery(this.$container).find('#hippo-ticket-help').on('click', {that: this}, this.showTicketHelp);
+      jQuery(this.$container).find('#hippo-close-ticket-help').on('click', {that: this}, this.closeTicketHelp);
+     // jQuery(this.$container).find('.create-video-link').on('click', {that: this}, this.colselibraryPanel);
+      jQuery(this.$container).find('.go-back').on('click', {that: this}, this.closelibraryPanel);
+      jQuery(this.$container).find('#hippo-ticket-copy-link').on('click', {that: this}, this.onCopyLink);
+      this.fetchRecentVideos = this.fetchRecentVideos.bind(this);
+      this.showTicketHelp = this.showTicketHelp.bind(this);
+      this.fetchVideoRequest = this.fetchVideoRequest.bind(this);
+      this.checkDontShow = this.checkDontShow.bind(this);
+      this.handleWidgetError = this.handleWidgetError.bind(this);
+      this.toggleTab = this.toggleTab.bind(this);
+      this.updateCount = this.updateCount.bind(this);
+      this.agentEmail = domHelper.getAgentEmail();
+      authorize();
+
+      function authorize() 
+      {
+      	 var self = this;
+
+      	 self.domain="https://www.hippovideo.io/";
+        var options = { body: "api_key=<%= iparam.wiz_api_key %>&email="+self.agentEmail};
+        var url = domain+'/api/user/token.json';
+        $request.post(url, options)
+          .done(function(data){
+            var parsedResponse = JSON.parse(data.response);
+            if(parsedResponse.status == false){
+              console.log("Failed :: ",parsedResponse.fail_type);
+              if(parsedResponse.fail_type == "deactivated" 
+                      || parsedResponse.fail_type == "user_not_connected"){
+                self.checkDontShow(function(result){
+                  if(result){
+                    document.getElementById("hippo-widget").style.display="none";
+                  } else {
+                    document.getElementById("dont-show-again-link").style.display='block';
+                    document.getElementById("deactivated-error").style.display='block';
+                    self.handleWidgetError("Contact your admin to enable Hippo Video.");
+                  }
+                });
+              }else if(parsedResponse.fail_type == "invalid_license"){
+                document.getElementById("deactivated-error").style.display='block';
+                self.handleWidgetError("Please upgrade to continue using Hippo Video.");
+              }
+              else if(parsedResponse.fail_type == "invalid_api"){
+                self.handleWidgetError("Please provide a valid API Key or contact Hippo Video support.");
+              } else {
+                self.handleWidgetError("There seems to be an error. Contact Hippo Video support.");
+              }
+            } else {
+
+              ////////  
+              self.authToken = "Y6dL8EfsLUg5uGaiyTCk";
+              self.clickHandling(self.authToken);
+              self.getGuestUrl(self.authToken);
+            }
+          })
+          .fail(function(err){
+            if(err){
+              self.handleWidgetError("There seems to be an error. Contact Hippo Video support.");
+            }
+          });     
+      }
+
+      function clickHandling(authToken)
+      {
+      
+
+	      var howItWorks = jQuery(this.$container).find('#hippo-how-it-works');
+	      howItWorks.attr('href', this.domain+'/faq.html');
+	      howItWorks.attr('target', '_blank');
+
+	      var howtoLink = jQuery(this.$container).find('.howto');
+	      howtoLink.attr('href', this.domain+'/video/home?authentication_token='+authToken+'&email='+this.agentEmail);
+	      howtoLink.attr('target', '_blank');
+
+	      // Create video link
+	      var howtoLink = jQuery(this.$container).find('.create-video-link');
+	      howtoLink.attr('href', this.domain+'/video/home?authentication_token='+authToken+'&email='+this.agentEmail);
+	      howtoLink.attr('target', '_blank');
+
+   },
+
+   function getGuestUrl(authToken)
+   {
+      var self = this;
+      var options = { body: "authentication_token="+authToken+"&email="+self.agentEmail+"&video_fetch_type=all"};
+      var ticketId = domHelper.ticket.getTicketInfo()['helpdesk_ticket']['display_id'];
+      var url = this.domain+'/api/user/guest_link.json';
+      
+      if(ticketId != undefined && ticketId != ''){
+        var url = this.domain+'/api/user/guest_link/'+ticketId+'.json';
+      }
+      this.$request.post(url, options)
+        .done(function(data){
+          var guestUrl = JSON.parse(data.response).url;
+          var guestCopyLink = jQuery(self.$container).find('#guest-copy-link');
+          guestCopyLink.attr('value', guestUrl);
+          // jQuery(self.$container).find('#hippo-ticket-copy-link').on('click', {that: self}, self.onCopyLink);
+        })
+        .fail(function(err){
+          // nothing to do
+          if(err){}
+        });
+   }
+
+
+
+</script>>
