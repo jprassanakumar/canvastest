@@ -142,7 +142,7 @@
       	 self.domain="https://www.hippovideo.io/";
         var options = { body: "api_key=<%= iparam.wiz_api_key %>&email="+self.agentEmail};
         var url = domain+'/api/user/token.json';
-        $request.post(url, options)
+        $.post(url, options)
           .done(function(data){
             var parsedResponse = JSON.parse(data.response);
             if(parsedResponse.status == false){
