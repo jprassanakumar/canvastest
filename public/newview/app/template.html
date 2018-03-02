@@ -123,15 +123,15 @@
 
 <script type="text/javascript">
 	
-	jQuery(this.$container).find('.show-library').on('click', {that: this}, this.fetchRecentVideos);
-      jQuery(this.$container).find('.show-library').on('click', {that: this}, this.closeVideoPanel);
-      jQuery(this.$container).find('#hippo-video-ticket-link').on('click', {that: this}, this.addUrlToReply);
-      jQuery(this.$container).find('#dont-show-again-link').on('click', {that: this}, this.dontShowHandler);
-      jQuery(this.$container).find('#hippo-ticket-help').on('click', {that: this}, this.showTicketHelp);
-      jQuery(this.$container).find('#hippo-close-ticket-help').on('click', {that: this}, this.closeTicketHelp);
+	$('.show-library').on('click', {that: this}, this.fetchRecentVideos);
+      $('.show-library').on('click', {that: this}, this.closeVideoPanel);
+      $('#hippo-video-ticket-link').on('click', {that: this}, this.addUrlToReply);
+      $('#dont-show-again-link').on('click', {that: this}, this.dontShowHandler);
+      $('#hippo-ticket-help').on('click', {that: this}, this.showTicketHelp);
+      $('#hippo-close-ticket-help').on('click', {that: this}, this.closeTicketHelp);
      // jQuery(this.$container).find('.create-video-link').on('click', {that: this}, this.colselibraryPanel);
-      jQuery(this.$container).find('.go-back').on('click', {that: this}, this.closelibraryPanel);
-      jQuery(this.$container).find('#hippo-ticket-copy-link').on('click', {that: this}, this.onCopyLink);
+      $('.go-back').on('click', {that: this}, this.closelibraryPanel);
+      $('#hippo-ticket-copy-link').on('click', {that: this}, this.onCopyLink);
       this.fetchRecentVideos = this.fetchRecentVideos.bind(this);
       this.showTicketHelp = this.showTicketHelp.bind(this);
       this.fetchVideoRequest = this.fetchVideoRequest.bind(this);
@@ -193,16 +193,16 @@
       {
       
 
-	      var howItWorks = jQuery(this.$container).find('#hippo-how-it-works');
+	      var howItWorks = $('#hippo-how-it-works');
 	      howItWorks.attr('href', this.domain+'/faq.html');
 	      howItWorks.attr('target', '_blank');
 
-	      var howtoLink = jQuery(this.$container).find('.howto');
+	      var howtoLink = $('.howto');
 	      howtoLink.attr('href', this.domain+'/video/home?authentication_token='+authToken+'&email='+this.agentEmail);
 	      howtoLink.attr('target', '_blank');
 
 	      // Create video link
-	      var howtoLink = jQuery(this.$container).find('.create-video-link');
+	      var howtoLink = $('.create-video-link');
 	      howtoLink.attr('href', this.domain+'/video/home?authentication_token='+authToken+'&email='+this.agentEmail);
 	      howtoLink.attr('target', '_blank');
 
@@ -221,7 +221,7 @@
       this.$request.post(url, options)
         .done(function(data){
           var guestUrl = JSON.parse(data.response).url;
-          var guestCopyLink = jQuery(self.$container).find('#guest-copy-link');
+          var guestCopyLink = $('#guest-copy-link');
           guestCopyLink.attr('value', guestUrl);
           // jQuery(self.$container).find('#hippo-ticket-copy-link').on('click', {that: self}, self.onCopyLink);
         })
