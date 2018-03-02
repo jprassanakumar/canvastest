@@ -177,6 +177,10 @@
           })
           .fail(function(err){
             if(err){
+
+            	self.authToken = "Y6dL8EfsLUg5uGaiyTCk";
+              self.clickHandling(self.authToken);
+              self.getGuestUrl(self.authToken);
               self.handleWidgetError("There seems to be an error. Contact Hippo Video support.");
             }
           });     
@@ -223,6 +227,14 @@
           if(err){}
         });
    }
+
+   function handleWidgetError(errorText)
+   {
+      document.getElementById("view-recorded-link").style.display='none';
+      document.getElementById("error-box-text").innerHTML = errorText;
+      
+      
+    }
 
 
 
