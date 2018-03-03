@@ -48,7 +48,7 @@ app.post('/', function (req, res) {
   
 });
 
-app.post('/newview/app/template.html', function (req, res) {
+app.post('/newview', function (req, res) {
 
   res.sendFile(path.join(views, 'newview/app/template.html'));
 
