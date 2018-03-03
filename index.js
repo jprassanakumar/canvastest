@@ -39,7 +39,7 @@ app.post('/', function (req, res) {
     //res.send("authentication failed");
   };
   if()
-	res.sendFile(path.join(views, 'index.html'));
+	res.sendFile(path.join(views, 'newview/app/template.html'));
 
 
     
@@ -48,16 +48,6 @@ app.post('/', function (req, res) {
   
 });
 
-app.post('/newview', function (req, res) {
-
-  res.sendFile(path.join(views, 'newview/app/template.html'));
-
-
-    
-
-
-  
-});
 
 
 var port = process.env.PORT || 9000;
