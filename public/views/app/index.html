@@ -48,7 +48,7 @@
 							<label class="hwiz-label">RECORD an EXPLAINER VIDEO</label>
 						</div>
 					</a>
-					<div class="wiz-box right-curve text-center" id="hippo-testimonial-box">
+					<div class="wiz-box right-curve text-center" id="hippo-testimonial-box" style="display: none">
 						<div class="soon-text">Coming Soon</div>
 						<div class="fda-image"><img src="https://testcanvastesting.herokuapp.com/views/assets/testimonial.png" /></div>
 						<label class="hwiz-label">get customer testimonial</label>
@@ -187,6 +187,12 @@
 
    }
 
+   function closeVideoPanel(event)
+   {
+      document.getElementById("videoPanel").hide();
+      document.getElementById("libraryPanel").style.display = 'block';
+    }
+
    function getGuestUrl(authToken)
    {
      
@@ -199,7 +205,129 @@
       
       
     }
+function fetchVideos(fetchAllVideos, success, error) 
+{
+  var payload;
+  var url;
+  //console.log("AUHHHHH TOKEN :: ",this.authToken);
+  if(fetchAllVideos){
+      payload = "authentication_token="+authToken+"&email="+email+"&video_fetch_type=all";
+      //url = hippoDomain+'/api/video/recent_videos.json'; // Recent videos as of now fetches all videos need to make change in rails
+      url='https://testcanvastesting.herokuapp.com/views/video.json';
+  } else {
+      payload = "authentication_token="+authToken+"&email="+email;
+      //url = 'hippoDomain+'/api/video/recent_videos.json'';
+      url='https://testcanvastesting.herokuapp.com/views/video.json';
+  }
+  $.getJSON(url, function(json) {
+      populateVideoLibrary("myvideo", json);
+  });
+   
+  
+  $('.hv-fd-loader').show();
+}
 
+// Populates the videos in the curresponding block
+function populateVideoLibrary(type, library){
+  var videoNode = constructVideoNode(type, library);
+  //if(type == "myvideo")
+  {
+    $('.hv-fd-myvideo-container').empty().append($(videoNode));
+  } 
+  //else 
+  {
+    $('.hv-fd-allvideo-container').empty().append($(videoNode));
+  }
+  $('.hv-fd-add-reply-link').on('click', addLinkToReply);
+  
+}
+
+function constructVideoNode(type, jsonObj){
+    var videosJson = (jsonObj);
+    var library = videosJson.libraries;
+    var categoryMapping = videosJson.category_mapping;
+    var categories = videosJson.categories;
+    var templateHtml = $('.hv-fd-library-template').html();
+    var categoryTemplateHtml = $('.hv-fd-category-template').html();
+    var listHtml = "";
+    var categoryHtml = "";
+    var categoryAttr = "";
+    var categoryMapJson = {};
+    var categoryClass;
+    currentVideoCount = library.length;
+    if(type == "allvideos"){
+      allVideoCount = currentVideoCount;
+    }else {
+      myVideoCount = currentVideoCount;
+    }
+    console.log("LIBRARY >>>>>> "+type+" :: "+currentVideoCount);
+    $.each(categoryMapping, function(i, categoryMap){
+      if(categoryMapJson[categoryMap.authoring_asset_id] == undefined || categoryMapJson[categoryMap.authoring_asset_id] == "undefined"){
+        categoryMapJson[categoryMap.authoring_asset_id] = [];
+        categoryMapJson[categoryMap.authoring_asset_id].push(categoryMap.video_categories_id);
+        categoryMapJson[categoryMap.authoring_asset_id].push(0);
+      } else {
+        categoryMapJson[categoryMap.authoring_asset_id].push(categoryMap.video_categories_id);
+      }
+    });
+    var count=0;
+    var lib='';
+    for (var i = 0; i < library.length; i++) 
+    {
+      lib=library[i];
+      categoryClass = "";
+      if (lib.id in categoryMapJson)
+      {
+        categoryClass += "hv-fd-video-category-"+categoryMapJson[lib.id]+" ";
+      }
+      if(categoryClass == ""){
+        categoryClass = "hv-fd-video-category-0";
+      }
+      listHtml += templateHtml.replace(/{{id}}/g, lib.id)
+            .replace(/{{title}}/g, lib.title)
+            .replace(/{{url}}/g, lib.url)
+            .replace(/{{created_at}}/g, lib.created_at)
+            .replace(/{{num_viewed}}/g, lib.num_viewed)
+            .replace(/{{copy_id}}/g, jsonObj.type)
+            .replace(/{{thumb}}/g, lib.thumb)
+            .replace(/{{duration}}/g, lib.duration)
+            .replace(/{{thumb_url}}/g, lib.thumbnail_url)
+            .replace(/{{category_class}}/g, categoryClass);
+
+    }
+
+    // $.each(library, function(i, lib) {
+    //   categoryClass = "";
+    //   $.each(categoryMapJson[lib.id], function(j, catId){
+    //     categoryClass += "hv-fd-video-category-"+catId+" ";
+    //   });
+    //   if(categoryClass == ""){
+    //     categoryClass = "hv-fd-video-category-0";
+    //   }
+    //   if(!lib.is_error && lib.title != null){
+    //     listHtml += templateHtml.replace(/{{id}}/g, lib.id)
+    //                 .replace(/{{title}}/g, lib.title)
+    //                 .replace(/{{url}}/g, lib.url)
+    //                 .replace(/{{created_at}}/g, lib.created_at)
+    //                 .replace(/{{num_viewed}}/g, lib.num_viewed)
+    //                 .replace(/{{copy_id}}/g, jsonObj.type)
+    //                 .replace(/{{thumb}}/g, lib.thumb)
+    //                 .replace(/{{duration}}/g, lib.duration)
+    //                 .replace(/{{thumb_url}}/g, lib.thumbnail_url)
+    //                 .replace(/{{category_class}}/g, categoryClass);
+    //   }
+    //   count++;
+    //   console.log(count);
+    //   if(count>9)
+    //       return listHtml;
+    //     $('.hv-fd-category-dropdown').empty().append($(categoryHtml));
+    // $('.hv-fd-category-dropdown').prepend($('<option value="0" selected>All Categories</option>'));
+    // });
+    
+    $('.hv-fd-category-dropdown').empty().append($(categoryHtml));
+    $('.hv-fd-category-dropdown').prepend($('<option value="0" selected>All Categories</option>'));
+    return listHtml;
+  }
 
 
 </script>>
