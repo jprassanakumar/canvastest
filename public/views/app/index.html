@@ -125,13 +125,13 @@
 	
 	$('.show-library').on('click', fetchVideos);
       $('.show-library').on('click', closeVideoPanel);
-      $('#hippo-video-ticket-link').on('click',addUrlToReply);
-      $('#dont-show-again-link').on('click', dontShowHandler);
-      $('#hippo-ticket-help').on('click', showTicketHelp);
-      $('#hippo-close-ticket-help').on('click', closeTicketHelp);
+      $('#hippo-video-ticket-link').on('click',copyUrl);
+      //$('#dont-show-again-link').on('click', dontShowHandler);
+      //$('#hippo-ticket-help').on('click', showTicketHelp);
+     // $('#hippo-close-ticket-help').on('click', closeTicketHelp);
      // jQuery(this.$container).find('.create-video-link').on('click', {that: this}, this.colselibraryPanel);
       $('.go-back').on('click', closelibraryPanel);
-      $('#hippo-ticket-copy-link').on('click', onCopyLink);
+      //$('#hippo-ticket-copy-link').on('click', onCopyLink);
       $('.error-box').hide();
       $('.info-box').hide();
       
@@ -187,6 +187,11 @@
 
    }
 
+   function copyUrl()
+   {
+
+   }
+
    function closeVideoPanel(event)
    {
       document.getElementById("videoPanel").hide();
@@ -205,6 +210,13 @@
       
       
     }
+
+    function closelibraryPanel(event)
+    {
+      document.getElementById("libraryPanel").style.display = 'none';
+      document.getElementById("videoPanel").show();
+    }
+
 function fetchVideos(fetchAllVideos, success, error) 
 {
   var payload;
