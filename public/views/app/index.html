@@ -96,25 +96,25 @@
 				<div id="allvideos" class="tabcontent lib-view" style="display:none">
 				  <div id="allvideos-emptylib" class="empty-video-list" style="display:none"><img src="https://testcanvastesting.herokuapp.com/views/assets/empty-hippo.png" /><label>You have no videos to display</label></div>
 				</div>
-
-			   <script id="template-list-item" type="text/template">
-					<div id="{id}" class="urlLink list-view clearfix" data-url="{url}" data-title="{title}">
-					  <a href="{url}" target="_blank">
-						  <div class="video-thumb-nail">
-						  	<img src="https://testcanvastesting.herokuapp.com/views/assets/black-overlay.png" class="absolute overlay-img" />
-						  	<span class="absolute preview-text">Preview</span>
-						    <img src="{thumb}" />
-						  </div>
-					  </a>
-					  <div class="video-details">
-					    <p>{title}</p>
-					    <h6>Recorded on {created_at}</h6>
-					    <label class="play-time">{duration}</label>
-					  	<button class="copy-link-space hippo-copy-button {copy_id}-copy-key" data-copyurl="#url-{copy_id}-{id}"><img src="https://testcanvastesting.herokuapp.com/views/assets/copy-icon.png" class="copy-img" />Add to Reply</button>
-					  	<input type="hidden" id="url-{copy_id}-{id}" class="hippo-copy-url" value="{url}" data-thumbimage="{thumb}" data-thumbtitle="{title}">
-					  </div>
-					</div>
+				</script>
+			    <!-- Template for video list -->
+			    <script class="hv-fd-library-template" type="text/template">
+			      <div class="hv-fd-video-list-row {{category_class}}">
+			        <div class="video-thumb-div"><img src="{{thumb}}" /></div>
+			        <div class="rhs">
+			          <label class="hv-fd-video-name">{{title}}</label>
+			          <label class="recorede-date">Recorded on {{created_at}}</label>
+			          <label class="video-deration">{{duration}}</label>
+			          <label class="hv-fd-add-reply-block"><a class="hv-fd-add-reply-link" data-ref="hv-fd-copy-ref-{{id}}">Copy to clipboard</a></label>
+			          <input type="hidden" class="hv-fd-copy-ref-{{id}} hv-fd-video-copy-url" value="{{url}}" data-thumburl="{{thumb_url}}" data-thumbimage="{{thumb}}" data-thumbtitle="{{title}}">
+			        </div>
+			      </div>
 			    </script>
+			    <!-- Template for categories -->
+			    <script class="hv-fd-category-template" type="text/template">
+			      <option value="{{category_id}}" {{attribute}}>{{category_name}}</option>
+			    </script>
+
 			</div>
 			<!--   -->
     	</div>
