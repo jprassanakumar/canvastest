@@ -132,6 +132,8 @@
      // jQuery(this.$container).find('.create-video-link').on('click', {that: this}, this.colselibraryPanel);
       $('.go-back').on('click', {that: this}, this.closelibraryPanel);
       $('#hippo-ticket-copy-link').on('click', {that: this}, this.onCopyLink);
+      $('.error-box').hide();
+      $('.info-box').hide();
       
       authorize();
 
@@ -161,7 +163,7 @@
               self.authToken = "Y6dL8EfsLUg5uGaiyTCk";
               self.clickHandling(self.authToken);
               self.getGuestUrl(self.authToken);
-              self.handleWidgetError("There seems to be an error. Contact Hippo Video support.");
+              //self.handleWidgetError("There seems to be an error. Contact Hippo Video support.");
             }
           });     
       }
