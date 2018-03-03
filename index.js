@@ -12,7 +12,7 @@ app.use(express.static(path.join(__dirname, 'bower_components')));
 app.use(bodyParser.json()); // create application/json parser
 app.use(bodyParser.urlencoded({ entended: true })); //create application/x-www-urlencoded parser
 
-var views = path.join(__dirname, 'public/views');
+var views = path.join(__dirname, 'public/views/app');
 
 app.get('/', function (req, res) {
   res.sendFile(path.join(views, 'index.html'));
@@ -39,8 +39,8 @@ app.post('/', function (req, res) {
     //res.send("authentication failed");
   };
   if()
-	//res.sendFile(path.join(views, '/index.html'));
-  res.sendFile(__dirname + 'public/views/app/template.html');
+	res.sendFile(path.join(views, '/index.html'));
+  //res.sendFile(__dirname + 'public/views/app/index.html');
 
 
 
