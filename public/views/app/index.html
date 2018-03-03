@@ -246,11 +246,11 @@ function populateVideoLibrary(type, library){
   var videoNode = constructVideoNode(type, library);
   //if(type == "myvideo")
   {
-    $('.hv-fd-myvideo-container').empty().append($(videoNode));
+    $('#allvideos').empty().append($(videoNode));
   } 
   //else 
   {
-    $('.hv-fd-allvideo-container').empty().append($(videoNode));
+    $('#myvideos').empty().append($(videoNode));
   }
   $('.hv-fd-add-reply-link').on('click', copyUrl);
   
