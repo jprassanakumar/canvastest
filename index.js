@@ -39,7 +39,9 @@ app.post('/', function (req, res) {
     //res.send("authentication failed");
   };
   if()
-	res.sendFile(path.join(views, 'newview/app/template.html'));
+	//res.sendFile(path.join(views, 'public/newview/app/template.html'));
+  res.sendFile('public/newview/app/template.html' , { root : __dirname});
+
 
 
     
