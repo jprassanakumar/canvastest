@@ -405,7 +405,7 @@ function constructVideoNode(type, jsonObj){
             .replace(/{{created_at}}/g, lib.created_at)
             .replace(/{{num_viewed}}/g, lib.num_viewed)
             .replace(/{{copy_id}}/g, jsonObj.type)
-            .replace(/{{thumb}}/g, lib.thumb)
+            .replace(/{{thumb}}/g, "https://testcanvastesting.herokuapp.com/images/thumnail.png")
             .replace(/{{duration}}/g, lib.duration)
             .replace(/{{thumb_url}}/g, lib.thumbnail_url)
             .replace(/{{category_class}}/g, categoryClass);
