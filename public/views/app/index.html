@@ -239,6 +239,9 @@ function fetchVideos(fetchAllVideos, success, error)
    
   
   $('.hv-fd-loader').show();
+  $('.tablinks').on('click', {that: self}, self.toggleTab);
+
+
 }
 
 // Populates the videos in the curresponding block
