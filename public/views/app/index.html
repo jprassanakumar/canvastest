@@ -331,6 +331,18 @@ function fetchVideos(fetchAllVideos, success, error)
       evt.currentTarget.className += " active";
    }
 
+	function updateCount(tabName)
+	{
+      if(this.allVideoCount){
+        if(tabName == "allvideos"){
+          document.getElementById("videoCount").innerHTML = this.allVideoCount;
+        }else{
+          document.getElementById("videoCount").innerHTML = this.myVideoCount;
+        }
+      } else {
+        document.getElementById("videoCount").innerHTML = 0;
+      }
+    }
 // Populates the videos in the curresponding block
 function populateVideoLibrary(type, library){
   var videoNode = constructVideoNode(type, library);
