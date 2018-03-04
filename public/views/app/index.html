@@ -321,9 +321,9 @@ function fetchVideos(fetchAllVideos, success, error)
       }
       tablinks = document.getElementsByClassName("tablinks");
       if(evt.target.dataset.myid == "allvideos"){
-        this.fetchAllVideos();
+        fetchAllVideos();
       }
-      this.updateCount(evt.target.dataset.myid);
+      updateCount(evt.target.dataset.myid);
       for (i = 0; i < tablinks.length; i++) {
           tablinks[i].className = tablinks[i].className.replace(" active", "");
       }
