@@ -30,17 +30,6 @@
 
     //clickHandling();
     Desk.canvas(function() {
-
-          $.ajax({
-      method: 'post',
-      url: "https://www.hippovideo.io/scitylana/1",
-      success: function(resultData) { 
-        console.log(resultData);
-        //alert("Save Complete"); 
-      },
-      error: function() { console.log("errorrr");//alert("Save Complete");  
-    }
-    });
      
       Desk.canvas.client.refreshSignedRequest(function(data) {
         // Grab the response and save it to a variable.

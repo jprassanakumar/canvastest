@@ -123,6 +123,74 @@
 
 <script type="text/javascript">
 	var email="prasanna@lyceuminc.com"
+
+	    Desk.canvas(function() {
+     
+      Desk.canvas.client.refreshSignedRequest(function(data) {
+        // Grab the response and save it to a variable.
+        var signedRequest = data.payload.response;
+        // Base64-decode the second part of the signed request.
+        var decodedRequest = Desk.canvas.decode(signedRequest.split('.')[1]);
+        // The result is a JSON representation of the context. Let's parse that into a Javascript object.
+        var contextObj = JSON.parse(decodedRequest);
+        // Let's show what we actually get back.
+	console.log(signedRequest);
+        var contextElem = Desk.canvas.byId('context');
+        var greetingElem = Desk.canvas.byId('greeting');
+        greetingElem.innerHTML = 'Hi ' + contextObj.context.user.fullName + '!';
+        // Using JSON.stringify here because this will look much nicer than just showing `decodedRequest`.
+        //contextElem.innerHTML = JSON.stringify(contextObj, undefined, 2);
+        // We can also store this so we can reference it later without having to use a global variable.
+        Desk.canvas.client.signedrequest(contextObj);
+      
+      var url      = contextObj.client.targetOrigin+'/api/v2/users/27732944/groups';//contextObj.context.environment.case.url + '/replies/draft'
+
+      var userUrl      = contextObj.context.links.userUrl;//contextObj.context.environment.case.url + '/replies/draft'
+
+
+            console.log(userUrl);
+              Desk.canvas.client.ajax(userUrl, {
+                client: contextObj.client,
+                method: 'GET',
+                success: function(rsp) {
+                  console.log(rsp);
+                  var groupUrl=rsp.payload._links.groups.href;
+                  console.log(groupUrl);
+                  Desk.canvas.client.ajax(groupUrl, {
+                    client: contextObj.client,
+                    method: 'GET',
+                    success: function(rsp) {
+                      console.log(rsp);
+                      var userUrl=rsp.payload._embedded.entries[0]._links.users.href;
+                      console.log(userUrl);
+                      Desk.canvas.client.ajax(userUrl, {
+                        client: contextObj.client,
+                        method: 'GET',
+                        success: function(rsp) {
+                          console.log(rsp);
+                          var users=rsp.payload._embedded.entries;
+                          for (var i = 0; i < users.length; i++) 
+                          {
+                            console.log(users[i].email)
+
+                            //parent.document.body.style.backgroundColor = "red";
+                          }
+                        }
+                      });
+
+                    }
+                  });
+                  
+                 
+                 
+                }
+              });
+
+});
+
+    });      
+
+	    
 	$('.show-library').on('click', fetchVideos);
       $('.show-library').on('click', closeVideoPanel);
       $('#hippo-video-ticket-link').on('click',copyUrl);
@@ -239,10 +307,32 @@ function fetchVideos(fetchAllVideos, success, error)
    
   
   $('.hv-fd-loader').show();
-  $('.tablinks').on('click', {that: self}, self.toggleTab);
+  $('.tablinks').on('click',  self.toggleTab);
 
 
 }
+
+
+  function toggleTab(evt) 
+  {
+      evt.preventDefault();
+      evt.stopPropagation();
+      var i, tabcontent, tablinks;
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+      }
+      tablinks = document.getElementsByClassName("tablinks");
+      if(evt.target.dataset.myid == "allvideos"){
+        this.fetchAllVideos();
+      }
+      this.updateCount(evt.target.dataset.myid);
+      for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+      document.getElementById(evt.target.dataset.myid).style.display = "block";
+      evt.currentTarget.className += " active";
+   }
 
 // Populates the videos in the curresponding block
 function populateVideoLibrary(type, library){
