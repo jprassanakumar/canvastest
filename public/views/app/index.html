@@ -321,7 +321,7 @@ function fetchVideos(fetchAllVideos, success, error)
       }
       tablinks = document.getElementsByClassName("tablinks");
       if(evt.target.dataset.myid == "allvideos"){
-        fetchAllVideos();
+        fetchVideos();
       }
       updateCount(evt.target.dataset.myid);
       for (i = 0; i < tablinks.length; i++) {
