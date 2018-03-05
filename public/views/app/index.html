@@ -305,7 +305,7 @@
    		$('#videoPanel').show();
     }
 
-function fetchVideos(fetchAllVideos, success, error) 
+function fetchVideos(type,fetchAllVideos, success, error) 
 {
   var payload;
   var url;
@@ -320,7 +320,7 @@ function fetchVideos(fetchAllVideos, success, error)
       url='https://testcanvastesting.herokuapp.com/views_bkp/video.json';
   }
   $.getJSON(url, function(json) {
-      populateVideoLibrary("myvideo", json);
+      populateVideoLibrary(type, json);
   });
    
   
@@ -342,7 +342,7 @@ function fetchVideos(fetchAllVideos, success, error)
       }
       tablinks = document.getElementsByClassName("tablinks");
       if(evt.target.dataset.myid == "allvideos"){
-        fetchVideos();
+        fetchVideos(evt.target.dataset.myid);
       }
       updateCount(evt.target.dataset.myid);
       for (i = 0; i < tablinks.length; i++) {
@@ -365,13 +365,14 @@ function fetchVideos(fetchAllVideos, success, error)
       }
     }
 // Populates the videos in the curresponding block
-function populateVideoLibrary(type, library){
+function populateVideoLibrary(type, library)
+{
   var videoNode = constructVideoNode(type, library);
-  //if(type == "myvideo")
+  if(type == "myvideo")
   {
     $('#allvideos').empty().append($(videoNode));
   } 
-  //else 
+  else 
   {
     $('#myvideos').empty().append($(videoNode));
   }
