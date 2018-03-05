@@ -323,7 +323,7 @@ function fetchVideos(fetchAllVideos, success, error)
       if(evt.target.dataset.myid == "allvideos"){
         fetchVideos();
       }
-      this.updateCount(evt.target.dataset.myid);
+      updateCount(evt.target.dataset.myid);
       for (i = 0; i < tablinks.length; i++) {
           tablinks[i].className = tablinks[i].className.replace(" active", "");
       }
@@ -333,7 +333,7 @@ function fetchVideos(fetchAllVideos, success, error)
 
 	function updateCount(tabName)
 	{
-      if(this.allVideoCount){
+      if(allVideoCount){
         if(tabName == "allvideos"){
           document.getElementById("videoCount").innerHTML = this.allVideoCount;
         }else{
@@ -372,7 +372,7 @@ function constructVideoNode(type, jsonObj){
     var categoryClass;
     currentVideoCount = library.length;
     if(type == "allvideos"){
-      this.allVideoCount = currentVideoCount;
+      allVideoCount = currentVideoCount;
     }else {
       myVideoCount = currentVideoCount;
     }
