@@ -147,7 +147,7 @@
       var url      = contextObj.client.targetOrigin+'/api/v2/users/27732944/groups';//contextObj.context.environment.case.url + '/replies/draft'
 
       var userUrl      = contextObj.context.links.userUrl;//contextObj.context.environment.case.url + '/replies/draft'
-
+      ticketId=contextObj.case.id;
 
             console.log(userUrl);
               Desk.canvas.client.ajax(userUrl, {
@@ -221,7 +221,7 @@
             } 
             else 
             {
-              self.authToken = "Y6dL8EfsLUg5uGaiyTCk";
+              self.authToken = "";
               self.clickHandling(self.authToken);
               self.getGuestUrl(self.authToken);
             }
@@ -229,7 +229,7 @@
           .fail(function(err){
             if(err){
 
-              self.authToken = "Y6dL8EfsLUg5uGaiyTCk";
+              self.authToken = "";
               self.clickHandling(self.authToken);
               self.getGuestUrl(self.authToken);
               //self.handleWidgetError("There seems to be an error. Contact Hippo Video support.");
@@ -270,25 +270,25 @@
 
    function getGuestUrl()
    {
-      // var self = this;
-      // var options = { body: "authentication_token="+authToken+"&email="+self.agentEmail+"&video_fetch_type=all"};
-      // var ticketId = domHelper.ticket.getTicketInfo()['helpdesk_ticket']['display_id'];
-      // var url = this.domain+'/api/user/guest_link.json';
+      var self = this;
+      var options = { body: "authentication_token="+authToken+"&email="+self.agentEmail+"&video_fetch_type=all"};
       
-      // if(ticketId != undefined && ticketId != ''){
-      //   var url = this.domain+'/api/user/guest_link/'+ticketId+'.json';
-      // }
-      // this.$request.post(url, options)
-      //   .done(function(data){
-      //     var guestUrl = JSON.parse(data.response).url;
-      //     var guestCopyLink = $('#guest-copy-link');
-      //     guestCopyLink.attr('value', guestUrl);
-      //     // jQuery(self.$container).find('#hippo-ticket-copy-link').on('click', {that: self}, self.onCopyLink);
-      //   })
-      //   .fail(function(err){
-      //     // nothing to do
-      //     if(err){}
-      //   });
+      var url = this.domain+'/api/user/guest_link.json';
+      
+      if(ticketId != undefined && ticketId != ''){
+        var url = this.domain+'/api/user/guest_link/'+ticketId+'.json';
+      }
+      this.$request.post(url, options)
+        .done(function(data){
+          var guestUrl = JSON.parse(data.response).url;
+          var guestCopyLink = $('#guest-copy-link');
+          guestCopyLink.attr('value', guestUrl);
+          // jQuery(self.$container).find('#hippo-ticket-copy-link').on('click', {that: self}, self.onCopyLink);
+        })
+        .fail(function(err){
+          // nothing to do
+          if(err){}
+        });
    }
 
    function handleWidgetError(errorText)
@@ -305,30 +305,30 @@
    		$('#videoPanel').show();
     }
 
-function fetchVideos(type,fetchAllVideos, success, error) 
-{
-  var payload;
-  var url;
-  //console.log("AUHHHHH TOKEN :: ",this.authToken);
-  if(fetchAllVideos){
-      payload = "authentication_token="+authToken+"&email="+email+"&video_fetch_type=all";
-      //url = hippoDomain+'/api/video/recent_videos.json'; // Recent videos as of now fetches all videos need to make change in rails
-      url='https://testcanvastesting.herokuapp.com/views_bkp/video.json';
-  } else {
-      payload = "authentication_token="+authToken+"&email="+email;
-      //url = 'hippoDomain+'/api/video/recent_videos.json'';
-      url='https://testcanvastesting.herokuapp.com/views_bkp/video.json';
-  }
-  $.getJSON(url, function(json) {
-      populateVideoLibrary(type, json);
-  });
-   
-  
-  $('.hv-fd-loader').show();
-  $('.tablinks').on('click',  self.toggleTab);
+	function fetchVideos(type,fetchAllVideos, success, error) 
+	{
+	  var payload;
+	  var url;
+	  //console.log("AUHHHHH TOKEN :: ",this.authToken);
+	  if(fetchAllVideos){
+	      payload = "authentication_token="+authToken+"&email="+email+"&video_fetch_type=all";
+	      //url = hippoDomain+'/api/video/recent_videos.json'; // Recent videos as of now fetches all videos need to make change in rails
+	      url='https://testcanvastesting.herokuapp.com/views_bkp/video.json';
+	  } else {
+	      payload = "authentication_token="+authToken+"&email="+email;
+	      //url = 'hippoDomain+'/api/video/recent_videos.json'';
+	      url='https://testcanvastesting.herokuapp.com/views_bkp/video.json';
+	  }
+	  $.getJSON(url, function(json) {
+	      populateVideoLibrary(type, json);
+	  });
+	   
+	  
+	  $('.hv-fd-loader').show();
+	  $('.tablinks').on('click',  self.toggleTab);
 
 
-}
+	}
 
 
   function toggleTab(evt) 
