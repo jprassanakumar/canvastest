@@ -279,17 +279,20 @@
       if(ticketId != undefined && ticketId != ''){
         var url = this.domain+'/api/user/guest_link/'+ticketId+'.json';
       }
-      this.$request.post(url, options)
-        .done(function(data){
-          var guestUrl = JSON.parse(data.response).url;
+
+      $.post(url, options)
+          .done(function(data){
+            var guestUrl = JSON.parse(data.response).url;
           var guestCopyLink = $('#guest-copy-link');
           guestCopyLink.attr('value', guestUrl);
-          // jQuery(self.$container).find('#hippo-ticket-copy-link').on('click', {that: self}, self.onCopyLink);
-        })
-        .fail(function(err){
-          // nothing to do
-          if(err){}
-        });
+          })
+          .fail(function(err){
+            if(err){
+			var guestCopyLink = $('#guest-copy-link');
+			guestCopyLink.attr('value', '');
+            }
+          });
+
    }
 
    function handleWidgetError(errorText)
