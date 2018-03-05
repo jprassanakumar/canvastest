@@ -148,7 +148,7 @@
       var url      = contextObj.client.targetOrigin+'/api/v2/users/27732944/groups';//contextObj.context.environment.case.url + '/replies/draft'
 
       var userUrl      = contextObj.context.links.userUrl;//contextObj.context.environment.case.url + '/replies/draft'
-      ticketId=contextObj.case.id;
+      ticketId=contextObj.context.case.id;
 
             console.log(userUrl);
               Desk.canvas.client.ajax(userUrl, {
