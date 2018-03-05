@@ -126,6 +126,8 @@
 	var email="prasanna@lyceuminc.com";
 	var ticketId='';
 	var authToken='';
+	var myVideoCount=0;
+	var allVideoCount=0;
 
 	    Desk.canvas(function() {
      
@@ -268,25 +270,25 @@
 
    function getGuestUrl()
    {
-      var self = this;
-      var options = { body: "authentication_token="+authToken+"&email="+self.agentEmail+"&video_fetch_type=all"};
-      var ticketId = domHelper.ticket.getTicketInfo()['helpdesk_ticket']['display_id'];
-      var url = this.domain+'/api/user/guest_link.json';
+      // var self = this;
+      // var options = { body: "authentication_token="+authToken+"&email="+self.agentEmail+"&video_fetch_type=all"};
+      // var ticketId = domHelper.ticket.getTicketInfo()['helpdesk_ticket']['display_id'];
+      // var url = this.domain+'/api/user/guest_link.json';
       
-      if(ticketId != undefined && ticketId != ''){
-        var url = this.domain+'/api/user/guest_link/'+ticketId+'.json';
-      }
-      this.$request.post(url, options)
-        .done(function(data){
-          var guestUrl = JSON.parse(data.response).url;
-          var guestCopyLink = $('#guest-copy-link');
-          guestCopyLink.attr('value', guestUrl);
-          // jQuery(self.$container).find('#hippo-ticket-copy-link').on('click', {that: self}, self.onCopyLink);
-        })
-        .fail(function(err){
-          // nothing to do
-          if(err){}
-        });
+      // if(ticketId != undefined && ticketId != ''){
+      //   var url = this.domain+'/api/user/guest_link/'+ticketId+'.json';
+      // }
+      // this.$request.post(url, options)
+      //   .done(function(data){
+      //     var guestUrl = JSON.parse(data.response).url;
+      //     var guestCopyLink = $('#guest-copy-link');
+      //     guestCopyLink.attr('value', guestUrl);
+      //     // jQuery(self.$container).find('#hippo-ticket-copy-link').on('click', {that: self}, self.onCopyLink);
+      //   })
+      //   .fail(function(err){
+      //     // nothing to do
+      //     if(err){}
+      //   });
    }
 
    function handleWidgetError(errorText)
@@ -355,9 +357,9 @@ function fetchVideos(fetchAllVideos, success, error)
 	{
       if(allVideoCount){
         if(tabName == "allvideos"){
-          document.getElementById("videoCount").innerHTML = this.allVideoCount;
+          document.getElementById("videoCount").innerHTML = allVideoCount;
         }else{
-          document.getElementById("videoCount").innerHTML = this.myVideoCount;
+          document.getElementById("videoCount").innerHTML = myVideoCount;
         }
       } else {
         document.getElementById("videoCount").innerHTML = 0;
