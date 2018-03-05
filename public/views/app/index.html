@@ -124,6 +124,7 @@
 
 <script type="text/javascript">
 	var email="prasanna@lyceuminc.com";
+	var agentEmail="prasanna@lyceuminc.com";
 	var ticketId='';
 	var authToken='';
 	var myVideoCount=0;
@@ -211,7 +212,7 @@
       	 var self = this;
 
       	 self.domain="https://www.hippovideo.io/";
-        var options = { body: "api_key=<%= iparam.wiz_api_key %>&email="+self.agentEmail};
+        var options = { body: "api_key=<%= iparam.wiz_api_key %>&email="+agentEmail};
         var url = domain+'/api/user/token.json';
         $.post(url, options)
           .done(function(data){
@@ -246,12 +247,12 @@
 	      howItWorks.attr('target', '_blank');
 
 	      var howtoLink = $('.howto');
-	      howtoLink.attr('href', this.domain+'/video/home?authentication_token='+authToken+'&email='+this.agentEmail);
+	      howtoLink.attr('href', this.domain+'/video/home?authentication_token='+authToken+'&email='+agentEmail);
 	      howtoLink.attr('target', '_blank');
 
 	      // Create video link
 	      var howtoLink = $('.create-video-link');
-	      howtoLink.attr('href', this.domain+'/video/home?authentication_token='+authToken+'&email='+this.agentEmail);
+	      howtoLink.attr('href', this.domain+'/video/home?authentication_token='+authToken+'&email='+agentEmail);
 	      howtoLink.attr('target', '_blank');
 
    }
@@ -271,7 +272,7 @@
    function getGuestUrl()
    {
       var self = this;
-      var options = { body: "authentication_token="+authToken+"&email="+self.agentEmail+"&video_fetch_type=all"};
+      var options = { body: "authentication_token="+authToken+"&email="+agentEmail+"&video_fetch_type=all"};
       
       var url = this.domain+'/api/user/guest_link.json';
       
