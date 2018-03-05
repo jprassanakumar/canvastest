@@ -323,7 +323,7 @@ function fetchVideos(fetchAllVideos, success, error)
       if(evt.target.dataset.myid == "allvideos"){
         fetchVideos();
       }
-      updateCount(evt.target.dataset.myid);
+      this.updateCount(evt.target.dataset.myid);
       for (i = 0; i < tablinks.length; i++) {
           tablinks[i].className = tablinks[i].className.replace(" active", "");
       }
@@ -411,34 +411,6 @@ function constructVideoNode(type, jsonObj){
             .replace(/{{category_class}}/g, categoryClass);
 
     }
-
-    // $.each(library, function(i, lib) {
-    //   categoryClass = "";
-    //   $.each(categoryMapJson[lib.id], function(j, catId){
-    //     categoryClass += "hv-fd-video-category-"+catId+" ";
-    //   });
-    //   if(categoryClass == ""){
-    //     categoryClass = "hv-fd-video-category-0";
-    //   }
-    //   if(!lib.is_error && lib.title != null){
-    //     listHtml += templateHtml.replace(/{{id}}/g, lib.id)
-    //                 .replace(/{{title}}/g, lib.title)
-    //                 .replace(/{{url}}/g, lib.url)
-    //                 .replace(/{{created_at}}/g, lib.created_at)
-    //                 .replace(/{{num_viewed}}/g, lib.num_viewed)
-    //                 .replace(/{{copy_id}}/g, jsonObj.type)
-    //                 .replace(/{{thumb}}/g, lib.thumb)
-    //                 .replace(/{{duration}}/g, lib.duration)
-    //                 .replace(/{{thumb_url}}/g, lib.thumbnail_url)
-    //                 .replace(/{{category_class}}/g, categoryClass);
-    //   }
-    //   count++;
-    //   console.log(count);
-    //   if(count>9)
-    //       return listHtml;
-    //     $('.hv-fd-category-dropdown').empty().append($(categoryHtml));
-    // $('.hv-fd-category-dropdown').prepend($('<option value="0" selected>All Categories</option>'));
-    // });
     
     $('.hv-fd-category-dropdown').empty().append($(categoryHtml));
     $('.hv-fd-category-dropdown').prepend($('<option value="0" selected>All Categories</option>'));
