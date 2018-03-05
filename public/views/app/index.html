@@ -135,6 +135,7 @@
       Desk.canvas.client.refreshSignedRequest(function(data) {
         // Grab the response and save it to a variable.
         var signedRequest = data.payload.response;
+        console.log(signedRequest);
         // Base64-decode the second part of the signed request.
         var decodedRequest = Desk.canvas.decode(signedRequest.split('.')[1]);
         // The result is a JSON representation of the context. Let's parse that into a Javascript object.
@@ -255,7 +256,7 @@
 	      howtoLink.attr('href', this.domain+'/video/home?authentication_token='+authToken+'&email='+agentEmail);
 	      howtoLink.attr('target', '_blank');
 
-   }
+   		}
 
    function copyUrl()
    {
