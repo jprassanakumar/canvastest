@@ -123,7 +123,9 @@
 </div>
 
 <script type="text/javascript">
-	var email="prasanna@lyceuminc.com"
+	var email="prasanna@lyceuminc.com";
+	var ticketId='';
+	var authToken='';
 
 	    Desk.canvas(function() {
      
@@ -264,9 +266,27 @@
       
     }
 
-   function getGuestUrl(authToken)
+   function getGuestUrl()
    {
-     
+      var self = this;
+      var options = { body: "authentication_token="+authToken+"&email="+self.agentEmail+"&video_fetch_type=all"};
+      var ticketId = domHelper.ticket.getTicketInfo()['helpdesk_ticket']['display_id'];
+      var url = this.domain+'/api/user/guest_link.json';
+      
+      if(ticketId != undefined && ticketId != ''){
+        var url = this.domain+'/api/user/guest_link/'+ticketId+'.json';
+      }
+      this.$request.post(url, options)
+        .done(function(data){
+          var guestUrl = JSON.parse(data.response).url;
+          var guestCopyLink = $('#guest-copy-link');
+          guestCopyLink.attr('value', guestUrl);
+          // jQuery(self.$container).find('#hippo-ticket-copy-link').on('click', {that: self}, self.onCopyLink);
+        })
+        .fail(function(err){
+          // nothing to do
+          if(err){}
+        });
    }
 
    function handleWidgetError(errorText)
@@ -405,7 +425,7 @@ function constructVideoNode(type, jsonObj){
             .replace(/{{created_at}}/g, lib.created_at)
             .replace(/{{num_viewed}}/g, lib.num_viewed)
             .replace(/{{copy_id}}/g, jsonObj.type)
-            .replace(/{{thumb}}/g, "https://testcanvastesting.herokuapp.com/images/thumbnail.png")
+            .replace(/{{thumb}}/g, lib.thumb)
             .replace(/{{duration}}/g, lib.duration)
             .replace(/{{thumb_url}}/g, lib.thumbnail_url)
             .replace(/{{category_class}}/g, categoryClass);
