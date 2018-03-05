@@ -301,9 +301,8 @@
 
     function closelibraryPanel(event)
     {
-
-      document.getElementById("libraryPanel").style.display = 'none';
-      document.getElementById("videoPanel").show();
+   		$('#libraryPanel').hide();
+   		$('#videoPanel').show();
     }
 
 function fetchVideos(fetchAllVideos, success, error) 
