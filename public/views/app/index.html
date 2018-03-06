@@ -247,9 +247,9 @@
 	      howItWorks.attr('href', this.domain+'/faq.html');
 	      howItWorks.attr('target', '_blank');
 
-	      var howtoLink = $('.howto');
-	      howtoLink.attr('href', this.domain+'/video/home?authentication_token='+authToken+'&email='+agentEmail);
-	      howtoLink.attr('target', '_blank');
+	      // var howtoLink = $('.howto');
+	      // howtoLink.attr('href', this.domain+'/video/home?authentication_token='+authToken+'&email='+agentEmail);
+	      // howtoLink.attr('target', '_blank');
 
 	      // Create video link
 	      var howtoLink = $('.create-video-link');
@@ -302,7 +302,7 @@
 	}
 
 
-   function insertTicketVideoLink(event)
+   function insertTicketVideoLink()
    {
 	    var self = event.data.that;
 	    var msg = event.data.msg;
