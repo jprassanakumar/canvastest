@@ -39,14 +39,14 @@
 					<a class="record hide">
 						<div class="wiz-box left-curve text-center">
 							<div class="fda-image"><img src="https://testcanvastesting.herokuapp.com/views/assets/img-2.png" /></div>
-							<label class="hwiz-label">share your story</label>
+							<label class="hwiz-label">RECORD EXPLAINER VIDEO</label>
 						</div>
 					</a>
 					<a class="howto" id="hippo-howto-box">
 						<!--div class="wiz-box no-curve text-center"-->
 						<div class="wiz-box left-curve text-center">
 							<div class="fda-image"><img src="https://testcanvastesting.herokuapp.com/views/assets/img-3.png" /></div>
-							<label class="hwiz-label">RECORD an EXPLAINER VIDEO</label>
+							<label class="hwiz-label">REPLY WITH VIDEO TICKET</label>
 						</div>
 					</a>
 					<div class="wiz-box right-curve text-center" id="hippo-testimonial-box" style="display: none">
@@ -132,6 +132,8 @@
 	var context='';
 	var productUsers=[];
 	var productDomain='';
+	var hippoDomain="https://www.hippovideo.io/";
+	var ticketRecordUrl='#';
 	    Desk.canvas(function() {
      
       Desk.canvas.client.refreshSignedRequest(function(data) {
@@ -151,7 +153,6 @@
       var userUrl      = contextObj.context.links.userUrl;//contextObj.context.environment.case.url + '/replies/draft'
       ticketId=contextObj.context.environment.case.id;
       domain=contextObj.context.organization.name;
-
             console.log(userUrl);
               Desk.canvas.client.ajax(userUrl, {
                 client: contextObj.client,
@@ -182,18 +183,16 @@
                             //parent.document.body.style.backgroundColor = "red";
                           }
                           authorize();
+                          getTicketVideoURL();
                         }
                       });
 
                     }
-                  });
-                  
-                 
-                 
+                  });    
                 }
-              });
+             });
 
-});
+		});
 
     });      
 
@@ -214,8 +213,6 @@
 
       function authorize() 
       {
-      	
-      	self.domain="https://www.hippovideo.io/";
         var options = { body: context,email: agentEmail,domain: productDomain,sync_agents: productUsers};
         url = this.hippoDomain+"/api/sf_desk_signup.json";
         $.post(url, options)
@@ -259,11 +256,65 @@
 	      howtoLink.attr('href', this.domain+'/video/home?authentication_token='+authToken+'&email='+agentEmail);
 	      howtoLink.attr('target', '_blank');
 
+	      var explainerBtn = $('.record');
+		  explainerBtn.attr('href', this.hippoDomain+'/video/home?authentication_token='+this.authToken+'&email='+this.email);
+		  explainerBtn.attr('target', '_blank');
+
+	      $('.hippo-howto-box').on('click', {that: this, msg:'Use the link below to record your issue'}, insertTicketVideoLink);
+		  $('.customer-testimonial-div').on('click', {that: this, msg: 'Love the product? Use the link below to record a testimonial for us :)'}, insertTicketVideoLink);
+
    	  }
 
-   function copyUrl()
-   {
+   	  function getTicketVideoURL()
+   	  {
+          getUrlToRecord(ticketId);
+          getUrlToRecord(undefined);
+	  }
 
+	function getUrlToRecord(ticketId)
+	{
+	    var options = { body: "authentication_token="+authToken+"&email="+email+"&video_fetch_type=all"};
+	    var url = hippoDomain+'/api/user/guest_link.json';
+
+	    if(ticketId != undefined && ticketId != ''){
+	        var url = hippoDomain+'/api/user/guest_link/'+ticketId+'.json';
+	    }
+
+    	$.post(url, options).then (
+        function(data) {
+            var response = JSON.parse(data.response);
+            //console.log(response);
+            if(ticketId != undefined)
+            {
+                ticketRecordUrl = response.url;
+            }
+            else
+            {
+                guestRecordUrl = response.url;
+            }
+            //console.log(this.ticketRecordUrl);
+        },
+        function(error) {
+            //console.log('Error in getting the url to record for ticket/guest');
+            console.log(error);
+        }
+    	);
+	}
+
+
+   function insertTicketVideoLink(event)
+   {
+	    var self = event.data.that;
+	    var msg = event.data.msg;
+	    console.log('helloooooooo :: '+ticketRecordUrl);
+	}
+   function copyUrl(id)
+   {
+   	  var $temp = $("#"+id);
+	  $("body").append($temp);
+	  $temp.val($(element).text()).select();
+	  document.execCommand("copy");
+	  $temp.remove();
    }
 
    function closeVideoPanel(event)
