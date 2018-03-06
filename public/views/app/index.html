@@ -129,7 +129,9 @@
 	var authToken='';
 	var myVideoCount=0;
 	var allVideoCount=0;
-
+	var context='';
+	var productUsers=[];
+	var productDomain='';
 	    Desk.canvas(function() {
      
       Desk.canvas.client.refreshSignedRequest(function(data) {
@@ -140,16 +142,15 @@
         var decodedRequest = Desk.canvas.decode(signedRequest.split('.')[1]);
         // The result is a JSON representation of the context. Let's parse that into a Javascript object.
         var contextObj = JSON.parse(decodedRequest);
-        // Let's show what we actually get back.
-        // Using JSON.stringify here because this will look much nicer than just showing `decodedRequest`.
-        //contextElem.innerHTML = JSON.stringify(contextObj, undefined, 2);
-        // We can also store this so we can reference it later without having to use a global variable.
+        context=signedRequest;
+
         Desk.canvas.client.signedrequest(contextObj);
       
       var url      = contextObj.client.targetOrigin+'/api/v2/users/27732944/groups';//contextObj.context.environment.case.url + '/replies/draft'
 
       var userUrl      = contextObj.context.links.userUrl;//contextObj.context.environment.case.url + '/replies/draft'
       ticketId=contextObj.context.environment.case.id;
+      domain=contextObj.context.organization.name;
 
             console.log(userUrl);
               Desk.canvas.client.ajax(userUrl, {
@@ -174,10 +175,13 @@
                           var users=rsp.payload._embedded.entries;
                           for (var i = 0; i < users.length; i++) 
                           {
-                            console.log(users[i].email)
+                            console.log(users[i].email);
+                            var user = {email: users[i].email,verified: users[i].email_verified,name: users[i].name,level: users[i].level};
+                            productUsers.push(user);
 
                             //parent.document.body.style.backgroundColor = "red";
                           }
+                          authorize();
                         }
                       });
 
@@ -206,15 +210,14 @@
       $('.error-box').hide();
       $('.info-box').hide();
       
-      authorize();
+      
 
       function authorize() 
       {
-      	 var self = this;
-
-      	 self.domain="https://www.hippovideo.io/";
-        var options = { body: "api_key=<%= iparam.wiz_api_key %>&email="+agentEmail};
-        var url = domain+'/api/user/token.json';
+      	
+      	self.domain="https://www.hippovideo.io/";
+        var options = { body: context,email: agentEmail,domain: productDomain,sync_agents: productUsers};
+        url = this.hippoDomain+"/api/sf_desk_signup.json";
         $.post(url, options)
           .done(function(data){
             var parsedResponse = JSON.parse(data.response);
@@ -256,7 +259,7 @@
 	      howtoLink.attr('href', this.domain+'/video/home?authentication_token='+authToken+'&email='+agentEmail);
 	      howtoLink.attr('target', '_blank');
 
-   		}
+   	  }
 
    function copyUrl()
    {
