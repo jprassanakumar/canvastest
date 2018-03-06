@@ -260,8 +260,8 @@
 		  explainerBtn.attr('href', this.hippoDomain+'/video/home?authentication_token='+this.authToken+'&email='+this.email);
 		  explainerBtn.attr('target', '_blank');
 
-	      $('#hippo-howto-box').on('click', {that: this, msg:'Use the link below to record your issue'}, insertTicketVideoLink);
-		  $('#hippo-video-ticket-link').on('click', {that: this, msg: 'Love the product? Use the link below to record a testimonial for us :)'}, insertTicketVideoLink);
+	      $('#hippo-howto-box').on('click', insertTicketVideoLink);
+		  $('#hippo-video-ticket-link').on('click', insertTicketVideoLink);
 
    	  }
 
