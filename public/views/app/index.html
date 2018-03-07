@@ -320,7 +320,7 @@
        body.removeChild(copyFrom);
 
       document.getElementById("success-info-box").innerHTML = 'Url has been copied to clipboard';
-      var errObj = jQuery(this.$container).find('info-box');
+      var errObj = $('.info-box');
       errObj.show();
 
       setTimeout(function(){ errObj.hide(); }, 3000);
