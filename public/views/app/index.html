@@ -308,7 +308,7 @@
    {
 	    
 	    console.log('helloooooooo :: '+event.currentTarget.id);
-	    $('#'+event.currentTarget.id).select()
+	    $('#'+event.currentTarget.id).select().execCommand('copy');
         document.execCommand('copy');
 	}
    function copyUrl(id)
