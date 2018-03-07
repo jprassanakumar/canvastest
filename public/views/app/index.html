@@ -22,7 +22,7 @@
 				<div class="text-center"><img src="https://testcanvastesting.herokuapp.com/views/assets/img-1.png" /></div>
 				<div class="error-box hide"><img src="https://testcanvastesting.herokuapp.com/views/assets/error-round.png" />&nbsp; <span id="error-box-text">An error occured. Contact support.</span></div>
 
-				<div class="info-box hide"><img src="https://testcanvastesting.herokuapp.com/views/assets/info-round.png" />&nbsp; Success Message!</div>
+				<div class="info-box hide"><img src="https://testcanvastesting.herokuapp.com/views/assets/info-round.png" />&nbsp; <div id="success-info-box">Success Message!</div></div>
 
 				<div class="hiw text-center"><a id="hippo-how-it-works" class="">How Hippo Video works?</a></div>
 
@@ -285,18 +285,14 @@
             if(ticketId != undefined)
             {
                 ticketRecordUrl = response.url;
-                $("#hippo-howto-box").attr("data-copytarget",ticketRecordUrl);
             }
             else
             {
                 guestRecordUrl = response.url;
-                $("#hippo-video-ticket-link").attr("data-copytarget",guestRecordUrl);
             }
             //console.log(this.ticketRecordUrl);
         },
         function(error) {
-        	$("#hippo-video-ticket-link").attr("data-copytarget",'1234');
-        	$("#hippo-howto-box").attr("data-copytarget",'12345');
             //console.log('Error in getting the url to record for ticket/guest');
             console.log(error);
         }
@@ -306,16 +302,30 @@
 
    function insertTicketVideoLink(event)
    {
+   		var text='';
+	   	if(event.currentTarget.id='hippo-howto-box')
+	   	{
+	   		text=ticketRecordUrl;
+	   	}
+	   	else if(event.currentTarget.id='hippo-video-ticket-link')
+	   	{
+	   		text=guestRecordUrl;
+	   	}
    	   var copyFrom = document.createElement("textarea");
-	   copyFrom.textContent = "12345";
+	   copyFrom.textContent = text;
        var body = document.getElementsByTagName('body')[0];
        body.appendChild(copyFrom);
        copyFrom.select();
        document.execCommand('copy');
        body.removeChild(copyFrom);
+
+      document.getElementById("success-info-box").innerHTML = 'Url has been copied to clipboard';
+      var errObj = jQuery(this.$container).find('info-box');
+      errObj.show();
+
+      setTimeout(function(){ errObj.hide(); }, 3000);
+
 	   
-	    // $('#'+event.currentTarget.id).select();
-     //    document.execCommand('copy');
 	}
    function copyUrl(id)
    {
