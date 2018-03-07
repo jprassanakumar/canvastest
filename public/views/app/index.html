@@ -306,20 +306,14 @@
 
    function insertTicketVideoLink(event)
    {
-	    
-	    console.log('helloooooooo :: '+event.currentTarget.id);
-	      var t = event.target,c = t.dataset.copytarget,
-                inp = (c ? document.querySelector(c) : null);
-            if (inp && inp.select) {
-                inp.select();
-                try {
-                    document.execCommand('copy');
-                    inp.blur();
-                }
-                catch (err) {
-                    alert(shareI18N.shareQuizLinkView.copyError);
-                }
-            }
+   	   var copyFrom = document.createElement("textarea");
+	   copyFrom.textContent = "12345";
+       var body = document.getElementsByTagName('body')[0];
+       body.appendChild(copyFrom);
+       copyFrom.select();
+       document.execCommand('copy');
+       body.removeChild(copyFrom);
+	   
 	    // $('#'+event.currentTarget.id).select();
      //    document.execCommand('copy');
 	}
