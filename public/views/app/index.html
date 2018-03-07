@@ -308,8 +308,7 @@
    {
 	    
 	    console.log('helloooooooo :: '+event.currentTarget.id);
-	    console.log(event.currentTarget.getAttribute("data-copytarget"));
-	    $('#'+event.currentTarget.id).select()
+	    $('#'+event.currentTarget.getAttribute("data-copytarget")).select()
         document.execCommand('copy');
 	}
    function copyUrl(id)
