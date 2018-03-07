@@ -308,7 +308,7 @@
    {
 	    
 	    console.log('helloooooooo :: '+event.currentTarget.id);
-	    console.log(event.currentTarget.getAttribute("data-copytarget").nodeValue);
+	    console.log(event.currentTarget.getAttribute("data-copytarget"));
 	    $('#'+event.currentTarget.id).select()
         document.execCommand('copy');
 	}
