@@ -134,6 +134,7 @@
 	var productDomain='';
 	var hippoDomain="https://www.hippovideo.io/";
 	var ticketRecordUrl='#';
+	var adminEmail='';
 	    Desk.canvas(function() {
      
       Desk.canvas.client.refreshSignedRequest(function(data) {
@@ -179,7 +180,6 @@
                             console.log(users[i].email);
                             var user = {email: users[i].email,verified: users[i].email_verified,name: users[i].name,level: users[i].level};
                             productUsers.push(user);
-
                             //parent.document.body.style.backgroundColor = "red";
                           }
                           authorize();
@@ -241,8 +241,6 @@
 
       function clickHandling(authToken)
       {
-      
-
 	      var howItWorks = $('#hippo-how-it-works');
 	      howItWorks.attr('href', this.domain+'/faq.html');
 	      howItWorks.attr('target', '_blank');
@@ -287,14 +285,18 @@
             if(ticketId != undefined)
             {
                 ticketRecordUrl = response.url;
+                $("#hippo-howto-box").attr("data-copytarget",ticketRecordUrl);
             }
             else
             {
                 guestRecordUrl = response.url;
+                $("#hippo-video-ticket-link").attr("data-copytarget",guestRecordUrl);
             }
             //console.log(this.ticketRecordUrl);
         },
         function(error) {
+        	$("#hippo-video-ticket-link").attr("data-copytarget",'1234');
+        	$("#hippo-howto-box").attr("data-copytarget",'12345');
             //console.log('Error in getting the url to record for ticket/guest');
             console.log(error);
         }
@@ -304,9 +306,11 @@
 
    function insertTicketVideoLink()
    {
-	    var self = event.data.that;
-	    var msg = event.data.msg;
-	    console.log('helloooooooo :: '+ticketRecordUrl);
+	    
+	    console.log('helloooooooo :: '+event.currentTarget.id);
+
+	    $('#'+event.currentTarget.id).select()
+        document.execCommand('copy');
 	}
    function copyUrl(id)
    {
