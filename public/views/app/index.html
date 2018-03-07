@@ -308,8 +308,20 @@
    {
 	    
 	    console.log('helloooooooo :: '+event.currentTarget.id);
-	    $('#'+event.currentTarget.id).select();
-        document.execCommand('copy');
+	      var t = event.target,c = t.dataset.copytarget,
+                inp = (c ? document.querySelector(c) : null);
+            if (inp && inp.select) {
+                inp.select();
+                try {
+                    document.execCommand('copy');
+                    inp.blur();
+                }
+                catch (err) {
+                    alert(shareI18N.shareQuizLinkView.copyError);
+                }
+            }
+	    // $('#'+event.currentTarget.id).select();
+     //    document.execCommand('copy');
 	}
    function copyUrl(id)
    {
