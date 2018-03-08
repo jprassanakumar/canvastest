@@ -134,8 +134,9 @@
 	var productDomain='';
 	var hippoDomain="https://www.hippovideo.io/";
 	var ticketRecordUrl='#';
+	var guestRecordUrl='#';
 	var adminEmail='';
-	    Desk.canvas(function() {
+	Desk.canvas(function() {
      
       Desk.canvas.client.refreshSignedRequest(function(data) {
         // Grab the response and save it to a variable.
@@ -230,7 +231,7 @@
           })
           .fail(function(err){
             if(err){
-
+            	self.handleWidgetError("There seems to be an error. Contact Hippo Video support.");
               self.authToken = "";
               self.clickHandling(self.authToken);
               self.getGuestUrl(self.authToken);
@@ -373,7 +374,8 @@
    {
       document.getElementById("view-recorded-link").style.display='none';
       document.getElementById("error-box-text").innerHTML = errorText;
-      
+      var errObj = $('.error-box');
+      errObj.show(); 
       
     }
 
