@@ -8,7 +8,7 @@
 
 /* page start */
 .fd-wiz {
-  width: 350px;
+  width: 350px !important;
   background-color: #f9f9f9;
   border-radius: 5px;
 }
@@ -121,7 +121,56 @@
 .ticket-help {
   margin-left: 20px;
 }
+.video-thumb-div{
+  width: 130px;
+  height: 83px;
+  display: inline-block;
+  border: 1px solid #e7e7e7;
+  margin-left: 10px;
+}
+.rhs{
+  display: inline-block;
+  width: 185px;
+  padding-left: 5px;
+}
 
+.rhs .hv-fd-video-name{
+  font-family: open sans;
+  font-weight: normal;
+  font-size: 14px;
+  color: #1a1b1b;
+  display: block;
+  margin: 0;
+  line-height: 25px;
+}
+.rhs .recorede-date{
+  color: #969e9f;
+  font-weight: 400;
+  font-size: 11px;
+  display: block;
+  margin: 0;
+  line-height: 20px;
+}
+.rhs .video-deration{
+  color: #969e9f;
+  font-weight: 400;
+  font-size: 11px;
+  display: block;
+  margin: 0;
+  line-height: 20px;
+}
+.rhs .hv-fd-add-reply-block{
+  display: block;
+  font-size: 11px;
+  color: #4ea7bc;
+  text-decoration: underline;
+  text-align: right;
+}
+.hv-fd-video-list-row{
+  border-bottom: 1px dashed #e7e7e7;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
 
 
 
@@ -314,9 +363,10 @@ body
 .loading-gif {
   position: relative;
   top: 100px;
+  -display: none;
 }
 .tabcontent {
-    margin-top: 10px;
+    -margin-top: 10px;
     -webkit-animation: fadeEffect 1s;
     animation: fadeEffect 1s;
 }

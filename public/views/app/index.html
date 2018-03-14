@@ -88,12 +88,14 @@
 				</div> -->
 
 				<div class="tab-buttons-space text-center">
-					<a class="tablinks active" data-myid="myvideos" id="defaultOpen">My Videos</a>
-					<a class="tablinks" data-myid='allvideos'>All Videos</a>
-					<div id="videoCount" class="wiz-vdo-count" title="Videos count">0</div>
+          <center>
+  					<a class="tablinks active" data-myid="myvideos" id="defaultOpen">My Videos</a>
+  					<a class="tablinks" data-myid='allvideos'>All Videos</a>
+  					<div id="videoCount" class="wiz-vdo-count" title="Videos count">0</div>
+          </center>
 				</div>
 
-				<div id="loading" class="text-center"><img src="https://testcanvastesting.herokuapp.com/views/assets/loading.gif" width="24" height="24" class="loading-gif"></div>
+				<div id="loading" class="text-center"><img src="https://testcanvastesting.herokuapp.com/views/assets/loading.gif" width="24" height="24" class="loading-gif hide"></div>
 
 				<div id="myvideos" class="tabcontent lib-view">
 				  <div id="myvideos-emptylib" class="empty-video-list" style="display:none"><img src="https://testcanvastesting.herokuapp.com/views/assets/empty-hippo.png" /><label>You have no videos to display</label></div>
@@ -107,7 +109,7 @@
 			    <script class="hv-fd-library-template" type="text/template">
 			      <div class="hv-fd-video-list-row {{category_class}}">
 			        <!-- <div class="video-thumb-div"><img src="{{thumb}}" /></div> -->
-              <div class="video-thumb-div"><img src="/assets/thumbnail.png" /></div>
+              <div class="video-thumb-div"><img src="thumbnail.png" width="130" /></div>
 			        <div class="rhs">
 			          <label class="hv-fd-video-name">{{title}}</label>
 			          <label class="recorede-date">Recorded on {{created_at}}</label>
@@ -400,10 +402,12 @@
 	      payload = "authentication_token="+authToken+"&email="+email+"&video_fetch_type=all";
 	      //url = hippoDomain+'/api/video/recent_videos.json'; // Recent videos as of now fetches all videos need to make change in rails
 	      url='https://testcanvastesting.herokuapp.com/views_bkp/video.json';
+        // url='http://127.0.0.1:8887/video.json';
 	  } else {
 	      payload = "authentication_token="+authToken+"&email="+email;
 	      //url = 'hippoDomain+'/api/video/recent_videos.json'';
 	      url='https://testcanvastesting.herokuapp.com/views_bkp/video.json';
+        // url='http://127.0.0.1:8887/video.json';
 	  }
 	  $.getJSON(url, function(json) {
 	      populateVideoLibrary(type, json);
