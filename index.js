@@ -6,6 +6,7 @@ var express  = require('express'),
   path       = require('path'),
   CryptoJS   = require("crypto-js");
 
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'bower_components')));
 
