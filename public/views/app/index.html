@@ -11,58 +11,63 @@
   </div>
 </div-->
 <link rel="stylesheet" type="text/css" href="https://testcanvastesting.herokuapp.com/views/app/style.css">
+<!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
 <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="https://ajax.deskapi.com/libs/desk/canvas/1.0.0/desk-canvas-all.js"></script>
 <div class="widget" id="hippo-widget">
-	<h3>Rapid Video Creation & Sharing</h3>
+
+	<!-- <h3>Rapid Video Creation & Sharing</h3> -->
   	<div class="content">
     	<div class="app-box">
 		    <div class="fd-wiz" id="videoPanel">
-				<div class="text-center"><img src="https://testcanvastesting.herokuapp.com/views/assets/img-1.png" /></div>
-				<div class="error-box hide"><img src="https://testcanvastesting.herokuapp.com/views/assets/error-round.png" />&nbsp; <span id="error-box-text">An error occured. Contact support.</span></div>
+				  <!-- <div><center><img src="https://testcanvastesting.herokuapp.com/views/assets/img-1.png" /></center></div> -->
+				  <div class="error-box hide"><img src="https://testcanvastesting.herokuapp.com/views/assets/error-round.png" />&nbsp; <span id="error-box-text">An error occured. Contact support.</span></div>
 
-				<div class="info-box hide"><img src="https://testcanvastesting.herokuapp.com/views/assets/info-round.png" />&nbsp; <div id="success-info-box">Success Message!</div></div>
+				  <div class="info-box hide"><img src="https://testcanvastesting.herokuapp.com/views/assets/info-round.png" />&nbsp; <div id="success-info-box">Success Message!</div></div>
 
-				<div class="hiw text-center"><a id="hippo-how-it-works" class="">How Hippo Video works?</a></div>
+				  <div class="hiw"><center><a id="hippo-how-it-works" class="">How Hippo Video works?</a></center></div>
 
-				<div class="wiz-action-boxes text-center">
-					<div class="video-ticket-link-div" style="display: none" id="hippo-ticket-click-message">
-						<img src="https://testcanvastesting.herokuapp.com/views/assets/close.png" id="hippo-close-ticket-help" class="close-icon" />
-						<span>A link is added to reply. It lets your customer create a video of the issue and send it as reply.</span>
-						<input type="text" id="guest-copy-link" value="" readonly class="hippo-ticket-url" />
-						<label class="ticket-copy-link hippo-copy-api-key" id="hippo-ticket-copy-link" data-copyurl="#guest-copy-link">Copy Link</label>
-						<label class="ticket-copy-link hippo-copied-api-key" style="display:none">Copied</label>
-					</div>
+				  <div class="wiz-action-boxes text-center">
+  					<div class="video-ticket-link-div" style="display: none" id="hippo-ticket-click-message">
+  						<img src="https://testcanvastesting.herokuapp.com/views/assets/close.png" id="hippo-close-ticket-help" class="close-icon" />
+  						<span>A link is added to reply. It lets your customer create a video of the issue and send it as reply.</span>
+  						<input type="text" id="guest-copy-link" value="" readonly class="hippo-ticket-url" />
+  						<label class="ticket-copy-link hippo-copy-api-key" id="hippo-ticket-copy-link" data-copyurl="#guest-copy-link">Copy Link</label>
+  						<label class="ticket-copy-link hippo-copied-api-key" style="display:none">Copied</label>
+  					</div>
 					
-					<div id="deactivated-error" class="absolute lock-overlay" style="display:none"><img class="lock-image" src="https://testcanvastesting.herokuapp.com/views/assets/lock.png" /></div>
-					<a class="record hide">
-						<div class="wiz-box left-curve text-center">
-							<div class="fda-image"><img src="https://testcanvastesting.herokuapp.com/views/assets/img-2.png" /></div>
-							<label class="hwiz-label">RECORD EXPLAINER VIDEO</label>
-						</div>
-					</a>
-					<a class="howto" id="hippo-howto-box">
-						<!--div class="wiz-box no-curve text-center"-->
-						<div class="wiz-box left-curve text-center">
-							<div class="fda-image"><img src="https://testcanvastesting.herokuapp.com/views/assets/img-3.png" /></div>
-							<label class="hwiz-label">REPLY WITH VIDEO TICKET</label>
-						</div>
-					</a>
-					<div class="wiz-box right-curve text-center" id="hippo-testimonial-box" style="display: none">
-						<div class="soon-text">Coming Soon</div>
-						<div class="fda-image"><img src="https://testcanvastesting.herokuapp.com/views/assets/testimonial.png" /></div>
-						<label class="hwiz-label">get customer testimonial</label>
-					</div>	
-					<div class="hiw text-center"><a href="https://www.hippowiz.com/how-it-works.html" target="_blank"></a></div>
+					  <div id="deactivated-error" class="absolute lock-overlay" style="display:none"><img class="lock-image" src="https://testcanvastesting.herokuapp.com/views/assets/lock.png" /></div>
+            <center>
+  					<a class="record hide">
+  						<div class="wiz-box left-curve text-center wiz-box-one">
+  							<label class="hwiz-label">RECORD <br>EXPLAINER <br>VIDEO</label>
+  						</div>
+  					</a>
+  					<a class="howto" id="hippo-howto-box">
+  						<div class="wiz-box left-curve text-center wiz-box-two">
+  							<label class="hwiz-label">REPLY <br>WITH VIDEO <br>TICKET</label>
+  						</div>
+  					</a>
+            </center>
 
-					<button class="video-ticket-div hippo-copy-button" id="hippo-video-ticket-link" data-copyurl="#guest-copy-link">
-						<img src="https://testcanvastesting.herokuapp.com/views/assets/video-ticket.png" class="video-ticket-icon" />
-						<span>Ask customer to reply with video</span>
-					</button>
-					<img src="https://testcanvastesting.herokuapp.com/views/assets/help.png" class="ticket-help" id="hippo-ticket-help" />
-				</div>
-				<div id="view-recorded-link" class="hiw margin-top-18 text-center"><img src="https://testcanvastesting.herokuapp.com/views/assets/eye.png" class="eye-icon" />&nbsp;&nbsp;<a href="#" class='show-library'>View recorded videos</a></div>
+  					<div class="wiz-box right-curve text-center" id="hippo-testimonial-box" style="display: none">
+  						<div class="soon-text">Coming Soon</div>
+  						<div class="fda-image"><img src="https://testcanvastesting.herokuapp.com/views/assets/testimonial.png" /></div>
+  						<label class="hwiz-label">get customer testimonial</label>
+  					</div>	
+					  <div class="hiw text-center"><a href="https://www.hippowiz.com/how-it-works.html" target="_blank"></a></div>
+            <center>
+    					<button class="video-ticket-div hippo-copy-button" id="hippo-video-ticket-link" data-copyurl="#guest-copy-link">
+    						<img src="https://testcanvastesting.herokuapp.com/views/assets/video-ticket.png" class="video-ticket-icon" />
+    						<span>Ask customer to reply with video</span>
+    					</button>
+    					<img src="https://testcanvastesting.herokuapp.com/views/assets/help.png" class="ticket-help" id="hippo-ticket-help" />
+            </center>
+				  </div>
+          <center>
+            <div id="view-recorded-link" class="hiw margin-top-18 text-center"><img src="https://testcanvastesting.herokuapp.com/views/assets/eye.png" class="eye-icon" />&nbsp;&nbsp;<a href="#" class='show-library'>View recorded videos</a></div>
+          </center>
 				<div id="dont-show-again-link" style="display: none" class="hiw margin-top-18 text-center"><a>Don't show this again</a></div>
 					
 			</div>
@@ -520,4 +525,4 @@ function constructVideoNode(type, jsonObj){
   }
 
 
-</script>>
+</script>
