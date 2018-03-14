@@ -4,10 +4,8 @@ var express  = require('express'),
   bodyParser = require('body-parser'),
   app        = express(),
   path       = require('path'),
-  cors       = require('cors'),
   CryptoJS   = require("crypto-js");
 
-app.use(cors())
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'bower_components')));
 
