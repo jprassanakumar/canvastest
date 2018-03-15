@@ -163,8 +163,12 @@
   display: block;
   font-size: 11px;
   color: #4ea7bc;
-  text-decoration: underline;
+  text-decoration: none;
   text-align: right;
+  cursor: pointer;
+}
+.rhs .hv-fd-add-reply-block{
+  text-decoration: underline;
 }
 .hv-fd-video-list-row{
   border-bottom: 1px dashed #e7e7e7;
