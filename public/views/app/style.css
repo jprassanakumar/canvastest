@@ -484,6 +484,10 @@ body
   position: absolute;
   right: 10px;
   cursor: pointer;
+  text-decoration: none;
+}
+.create-video-link:hover{
+  text-decoration: underline;
 }
 
 .recent-vdo-loading {
