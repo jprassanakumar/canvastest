@@ -7,6 +7,12 @@
 }
 
 /* page start */
+.lock-box{
+  width: 350px;
+  height: 100%;
+  background-color: rgba(0,0,0,0,7);
+  z-index: 10;
+}
 .fd-wiz {
   width: 350px !important;
   background-color: #f9f9f9;
@@ -148,6 +154,7 @@
   font-weight: 400;
   font-size: 11px;
   display: block;
+
   margin: 0;
   line-height: 20px;
 }
