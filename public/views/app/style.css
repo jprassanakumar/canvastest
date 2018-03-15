@@ -314,10 +314,14 @@ body
   top: 3px;
 }
 .top-box span{
-  font-size: 15px;
+  font-size: 13px;
   margin-left: 5px;
   position: relative;
   top: -2px;
+  text-decoration: none;
+}
+.top-box span:hover{
+  text-decoration: underline;
 }
 .tab-buttons-space {
   border-bottom: 1px solid #e7e7e7;
@@ -467,7 +471,7 @@ body
   display: inline-block;
   position: relative;
   top: -1px;
-  right: -45px;
+  -right: -45px;
 }
 .go-back {
   font-size: 15px;
@@ -478,7 +482,7 @@ body
   font-family: 'Open Sans', sans-serif;
   color: #58b0c3 !important;
   position: absolute;
-  right: 0;
+  right: 10px;
   cursor: pointer;
 }
 
