@@ -75,7 +75,7 @@
 			<!-- -->
 			<div class="fd-wiz" id="libraryPanel">
 				<div class="top-box">
-					<a href="" class="go-back">
+					<a  class="go-back">
 	      				<img src="https://testcanvastesting.herokuapp.com/views/assets/back-arrow.png" class="logo-img" />
 	      				<span>Go Back</span><!-- <b id="videoCount" class="wiz-vdo-count"></b> -->
       				</a>
@@ -114,7 +114,7 @@
 			          <label class="hv-fd-video-name">{{title}}</label>
 			          <label class="recorede-date">Recorded on {{created_at}}</label>
 			          <label class="video-deration">{{duration}}</label>
-			          <label class="hv-fd-add-reply-block"><a class="hv-fd-add-reply-link" data-ref="hv-fd-copy-ref-{{id}}">Copy to clipboard</a></label>
+			          <label class="hv-fd-add-reply-block"><a class="hv-fd-add-reply-link" id="hv-fd-add-reply-link" data_ref="hv-fd-copy-ref-{{id}}">Copy to clipboard</a></label>
 			          <input type="hidden" class="hv-fd-copy-ref-{{id}} hv-fd-video-copy-url" value="{{url}}" data-thumburl="{{thumb_url}}" data-thumbimage="{{thumb}}" data-thumbtitle="{{title}}">
 			        </div>
 			      </div>
@@ -144,6 +144,8 @@
 	var ticketRecordUrl='#';
 	var guestRecordUrl='#';
 	var adminEmail='';
+	$('#loading').hide();
+	clickHandling();
 	Desk.canvas(function() {
      
       Desk.canvas.client.refreshSignedRequest(function(data) {
@@ -159,7 +161,7 @@
         Desk.canvas.client.signedrequest(contextObj);
       
       var url      = contextObj.client.targetOrigin+'/api/v2/users/27732944/groups';//contextObj.context.environment.case.url + '/replies/draft'
-
+	  
       var userUrl      = contextObj.context.links.userUrl;//contextObj.context.environment.case.url + '/replies/draft'
       ticketId=contextObj.context.environment.case.id;
       domain=contextObj.context.organization.name;
@@ -193,6 +195,7 @@
                           }
                           authorize();
                           getTicketVideoURL();
+
                         }
                       });
 
@@ -208,7 +211,8 @@
 
 	$('.show-library').on('click', fetchVideos);
       $('.show-library').on('click', closeVideoPanel);
-      $('#hippo-video-ticket-link').on('click',copyUrl);
+      $('#hippo-video-ticket-link').on('click',insertTicketVideoLink);
+
       //$('#dont-show-again-link').on('click', dontShowHandler);
       //$('#hippo-ticket-help').on('click', showTicketHelp);
      // $('#hippo-close-ticket-help').on('click', closeTicketHelp);
@@ -267,8 +271,8 @@
 		  explainerBtn.attr('href', this.hippoDomain+'/video/home?authentication_token='+this.authToken+'&email='+this.email);
 		  explainerBtn.attr('target', '_blank');
 
-	      $('#hippo-howto-box').on('click', {msg: "Love the product? Use the link below to record a testimonial for us :)"},insertTicketVideoLink);
-		  $('#hippo-video-ticket-link').on('click',{msg: "Love the product? Use the link below to record a testimonial for us :)"}, insertTicketVideoLink);
+	      $('#hippo-howto-box').on('click',insertTicketVideoLink);
+		  $('#hippo-video-ticket-link').on('click', insertTicketVideoLink);
 
    	  }
 
@@ -312,13 +316,20 @@
    function insertTicketVideoLink(event)
    {
    		var text='';
-	   	if(event.currentTarget.id='hippo-howto-box')
+
+	   	if(event.currentTarget.id=='hippo-howto-box')
 	   	{
 	   		text=ticketRecordUrl;
 	   	}
-	   	else if(event.currentTarget.id='hippo-video-ticket-link')
+	   	else if(event.currentTarget.id=='hippo-video-ticket-link')
 	   	{
 	   		text=guestRecordUrl;
+	   	}
+	   	else
+	   	{
+	   		event.currentTarget.innerHTML="Copied";
+	   		setTimeout(function(){ event.currentTarget.innerHTML="Copy to clipboard"; }, 3000);	
+	   		text=$("."+event.currentTarget.attributes.data_ref.nodeValue).val();
 	   	}
    	   var copyFrom = document.createElement("textarea");
 	   copyFrom.textContent = text;
@@ -333,8 +344,6 @@
       errObj.show();
 
       setTimeout(function(){ errObj.hide(); }, 3000);
-
-	   
 	}
    function copyUrl(id)
    {
@@ -399,22 +408,23 @@
 	  var url;
 	  //console.log("AUHHHHH TOKEN :: ",this.authToken);
 	  if(fetchAllVideos){
-	      payload = "authentication_token="+authToken+"&email="+email+"&video_fetch_type=all";
-	      //url = hippoDomain+'/api/video/recent_videos.json'; // Recent videos as of now fetches all videos need to make change in rails
+	      payload = {authentication_token : authToken,email : email, video_fetch_type : "all"};
+	      url = hippoDomain+'/api/video/recent_videos.json'; // Recent videos as of now fetches all videos need to make change in rails
 	      url='https://testcanvastesting.herokuapp.com/views_bkp/video.json';
-        // url='http://127.0.0.1:8887/video.json';
+          //url='http://127.0.0.1:8887/video.json';
 	  } else {
-	      payload = "authentication_token="+authToken+"&email="+email;
-	      //url = 'hippoDomain+'/api/video/recent_videos.json'';
+	  	  payload = {authentication_token : authToken,email : email};
+	      url = hippoDomain+'/api/video/recent_videos.json';
 	      url='https://testcanvastesting.herokuapp.com/views_bkp/video.json';
-        // url='http://127.0.0.1:8887/video.json';
+          //url='http://127.0.0.1:8887/video.json';
 	  }
+	  $('#loading').show();
 	  $.getJSON(url, function(json) {
 	      populateVideoLibrary(type, json);
 	  });
 	   
 	  
-	  $('.hv-fd-loader').show();
+	  
 	  $('.tablinks').on('click',  self.toggleTab);
 
 
@@ -440,6 +450,7 @@
       }
       document.getElementById(evt.target.dataset.myid).style.display = "block";
       evt.currentTarget.className += " active";
+      $('#loading').hide();
    }
 
 	function updateCount(tabName)
@@ -458,7 +469,7 @@
 function populateVideoLibrary(type, library)
 {
   var videoNode = constructVideoNode(type, library);
-  if(type == "myvideo")
+  if(type == "allvideos")
   {
     $('#allvideos').empty().append($(videoNode));
   } 
@@ -466,8 +477,8 @@ function populateVideoLibrary(type, library)
   {
     $('#myvideos').empty().append($(videoNode));
   }
-  $('.hv-fd-add-reply-link').on('click', copyUrl);
-  
+  $('.hv-fd-add-reply-link').on('click', insertTicketVideoLink);
+  $('#loading').hide();
 }
 
 function constructVideoNode(type, jsonObj){
