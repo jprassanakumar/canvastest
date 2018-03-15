@@ -123,7 +123,7 @@
 }
 .video-thumb-div{
   width: 130px;
-  height: 83px;
+  -height: 83px;
   display: inline-block;
   border: 1px solid #e7e7e7;
   margin-left: 10px;
