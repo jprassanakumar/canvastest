@@ -131,8 +131,8 @@
 </div>
 
 <script type="text/javascript">
-	var email="prasanna@lyceuminc.com";
-	var agentEmail="prasanna@lyceuminc.com";
+	var email="";
+	var agentEmail="";
 	var ticketId='';
 	var authToken='';
 	var myVideoCount=0;
@@ -159,8 +159,8 @@
         context=signedRequest;
 
         Desk.canvas.client.signedrequest(contextObj);
-      
-      var url      = contextObj.client.targetOrigin+'/api/v2/users/27732944/groups';//contextObj.context.environment.case.url + '/replies/draft'
+      	email = contextObj.context.user.email;
+      	agentEmail = contextObj.context.user.email;
 	  
       var userUrl      = contextObj.context.links.userUrl;//contextObj.context.environment.case.url + '/replies/draft'
       ticketId=contextObj.context.environment.case.id;
@@ -190,12 +190,11 @@
                           {
                             console.log(users[i].email);
                             var user = {email: users[i].email,verified: users[i].email_verified,name: users[i].name,level: users[i].level};
-                            productUsers.push(user);
-                            //parent.document.body.style.backgroundColor = "red";
+                            	productUsers.push(user);
                           }
                           authorize();
                           getTicketVideoURL();
-
+                          clickHandling();
                         }
                       });
 
@@ -206,21 +205,14 @@
 
 		});
 
-    });      
-
+    });   
 
 	$('.show-library').on('click', fetchVideos);
-      $('.show-library').on('click', closeVideoPanel);
-      $('#hippo-video-ticket-link').on('click',insertTicketVideoLink);
-
-      //$('#dont-show-again-link').on('click', dontShowHandler);
-      //$('#hippo-ticket-help').on('click', showTicketHelp);
-     // $('#hippo-close-ticket-help').on('click', closeTicketHelp);
-     // jQuery(this.$container).find('.create-video-link').on('click', {that: this}, this.colselibraryPanel);
-      $('.go-back').on('click', closelibraryPanel);
-      //$('#hippo-ticket-copy-link').on('click', onCopyLink);
-      $('.error-box').hide();
-      $('.info-box').hide();
+    $('.show-library').on('click', closeVideoPanel);
+    $('#hippo-video-ticket-link').on('click',insertTicketVideoLink);
+    $('.go-back').on('click', closelibraryPanel);
+    $('.error-box').hide();
+    $('.info-box').hide();
       
       
 
@@ -233,21 +225,18 @@
             var parsedResponse = JSON.parse(data.response);
             if(parsedResponse.status == false)
             {
+            	self.handleWidgetError("There seems to be an error. Contact Hippo Video support.");
             } 
             else 
             {
-              self.authToken = "";
-              self.clickHandling(self.authToken);
-              self.getGuestUrl(self.authToken);
+	            self.authToken = response.auth_token;
+	            self.clickHandling(self.authToken);
+	            self.getGuestUrl(self.authToken);
             }
           })
           .fail(function(err){
             if(err){
             	self.handleWidgetError("There seems to be an error. Contact Hippo Video support.");
-              self.authToken = "";
-              self.clickHandling(self.authToken);
-              self.getGuestUrl(self.authToken);
-              //self.handleWidgetError("There seems to be an error. Contact Hippo Video support.");
             }
           });     
       }
@@ -257,10 +246,6 @@
 	      var howItWorks = $('#hippo-how-it-works');
 	      howItWorks.attr('href', this.domain+'/faq.html');
 	      howItWorks.attr('target', '_blank');
-
-	      // var howtoLink = $('.howto');
-	      // howtoLink.attr('href', this.domain+'/video/home?authentication_token='+authToken+'&email='+agentEmail);
-	      // howtoLink.attr('target', '_blank');
 
 	      // Create video link
 	      var howtoLink = $('.create-video-link');
@@ -392,8 +377,7 @@
       //document.getElementById("view-recorded-link").style.display='none';
       document.getElementById("error-box-text").innerHTML = errorText;
       //var errObj = $('.error-box');
-      //errObj.show(); 
-      
+      //errObj.show();
     }
 
     function closelibraryPanel(event)
@@ -421,6 +405,7 @@
 	  $('#loading').show();
 	  $.getJSON(url, function(json) {
 	      populateVideoLibrary(type, json);
+	      updateCount(type);
 	  });
 	   
 	  
@@ -443,6 +428,9 @@
       tablinks = document.getElementsByClassName("tablinks");
       if(evt.target.dataset.myid == "allvideos"){
         fetchVideos(evt.target.dataset.myid);
+      }
+      else{
+      	fetchVideos(evt.target.dataset.myid);
       }
       updateCount(evt.target.dataset.myid);
       for (i = 0; i < tablinks.length; i++) {
