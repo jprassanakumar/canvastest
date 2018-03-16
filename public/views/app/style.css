@@ -9,10 +9,18 @@
 /* page start */
 .lock-box{
   width: 350px;
-  height: 200px;
+  height: 233px;
   background-color: rgba(0,0,0,0.7);
   z-index: 10;
   position: absolute;
+  border-radius: 0 0 5px 5px;
+}
+.lock-box input{
+  width: 80%;
+  height:30px;
+  margin-left: 10%;
+  margin-top: 20px;
+  border-radius: 5px;
 }
 .fd-wiz {
   width: 350px !important;
