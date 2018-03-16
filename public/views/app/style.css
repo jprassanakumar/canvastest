@@ -18,6 +18,11 @@
 .lock-box img{
   margin-top: 55px;
 }
+.lock-box .how-link{
+  bottom: 0;
+  font-size: 13px;
+  color: blue;
+}
 .lock-box input{
   width: 80%;
   height: 40px;
