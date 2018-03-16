@@ -16,12 +16,13 @@
   border-radius: 0 0 5px 5px;
 }
 .lock-box img{
-  margin-top: 55px;
+  margin-top: 40px;
 }
 .lock-box .how-link{
   bottom: 0;
   font-size: 13px;
-  color: blue;
+  color: #58b0c3;
+  text-decoration: none;
 }
 .lock-box input{
   width: 80%;
