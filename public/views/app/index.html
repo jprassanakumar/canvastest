@@ -394,25 +394,20 @@
 	  if(fetchAllVideos){
 	      payload = {authentication_token : authToken,email : email, video_fetch_type : "all"};
 	      url = hippoDomain+'/api/video/recent_videos.json'; // Recent videos as of now fetches all videos need to make change in rails
-	      url='https://testcanvastesting.herokuapp.com/views_bkp/video.json';
+	      //url='https://testcanvastesting.herokuapp.com/views_bkp/video.json';
           //url='http://127.0.0.1:8887/video.json';
 	  } else {
 	  	  payload = {authentication_token : authToken,email : email};
 	      url = hippoDomain+'/api/video/recent_videos.json';
-	      url='https://testcanvastesting.herokuapp.com/views_bkp/video.json';
+	      //url='https://testcanvastesting.herokuapp.com/views_bkp/video.json';
           //url='http://127.0.0.1:8887/video.json';
 	  }
 	  $('#loading').show();
 	  $.getJSON(url, function(json) {
 	      populateVideoLibrary(type, json);
-	      updateCount(type);
+	      
 	  });
-	   
-	  
-	  
 	  $('.tablinks').on('click',  self.toggleTab);
-
-
 	}
 
 
@@ -432,7 +427,6 @@
       else{
       	fetchVideos(evt.target.dataset.myid);
       }
-      updateCount(evt.target.dataset.myid);
       for (i = 0; i < tablinks.length; i++) {
           tablinks[i].className = tablinks[i].className.replace(" active", "");
       }
@@ -443,15 +437,11 @@
 
 	function updateCount(tabName)
 	{
-      if(allVideoCount){
-        if(tabName == "allvideos"){
-          document.getElementById("videoCount").innerHTML = allVideoCount;
-        }else{
-          document.getElementById("videoCount").innerHTML = myVideoCount;
-        }
-      } else {
-        document.getElementById("videoCount").innerHTML = 0;
-      }
+	    if(tabName == "allvideos"){
+	      document.getElementById("videoCount").innerHTML = allVideoCount;
+	    }else{
+	      document.getElementById("videoCount").innerHTML = myVideoCount;
+	    } 
     }
 // Populates the videos in the curresponding block
 function populateVideoLibrary(type, library)
@@ -522,6 +512,8 @@ function constructVideoNode(type, jsonObj){
             .replace(/{{category_class}}/g, categoryClass);
 
     }
+
+    updateCount(type);
     
     $('.hv-fd-category-dropdown').empty().append($(categoryHtml));
     $('.hv-fd-category-dropdown').prepend($('<option value="0" selected>All Categories</option>'));
