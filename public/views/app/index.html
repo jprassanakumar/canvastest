@@ -29,7 +29,7 @@
 				  <div class="hiw"><center><a id="hippo-how-it-works" class="">How Hippo Video works?</a></center></div>
           <div class="lock-box">
             <center><img src="https://testcanvastesting.herokuapp.com/views/assets/lock-grey.svg"></center><br>
-            <input type="text" placeholder="Enter Your Access Token" /><br><br><center><button type="button" class="go">Submit</button></center><br>
+            <input type="text" id="desk_key" placeholder="Enter Your Access Token" /><br><br><center><button type="button" class="go">Submit</button></center><br>
             <center><a class="how-link" href="">how to link?</a></center>
           </div>
 				  <div class="wiz-action-boxes text-center">
@@ -275,7 +275,7 @@
 
 	  function authorize() 
 	  {
-	  	var desk_key=$(".go").val();
+	  	var desk_key=$("#desk_key").val();
 	    var options = { body: context,email: agentEmail,domain: productDomain,sync_agents: productUsers,api_key: desk_key};
 	    url = this.hippoDomain+"/api/sf_desk_signup.json";
 	    $.post(url, options)
