@@ -275,7 +275,7 @@
 
 	  function authorize() 
 	  {
-	    var options = { body: context,email: agentEmail,domain: productDomain,sync_agents: productUsers,api_key: desk_api_key};
+	    var options = { body: context,email: agentEmail,domain: productDomain,sync_agents: productUsers,api_key: $(".go").val()};
 	    url = this.hippoDomain+"/api/sf_desk_signup.json";
 	    $.post(url, options)
 	      .done(function(data){
