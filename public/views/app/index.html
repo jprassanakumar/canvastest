@@ -186,7 +186,6 @@
     }
     function updateUserDetails()
     {
-    	Desk.canvas(function() {
      
 	      Desk.canvas.client.refreshSignedRequest(function(data) {
 	        // Grab the response and save it to a variable.
@@ -246,7 +245,6 @@
 
 			});
 
-	    });
     }
     
     function isTokenUpdated(context,email)
