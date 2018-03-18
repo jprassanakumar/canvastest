@@ -29,7 +29,7 @@
 				  <div class="hiw"><center><a id="hippo-how-it-works" class="">How Hippo Video works?</a></center></div>
           <div class="lock-box">
             <center><img src="https://testcanvastesting.herokuapp.com/views/assets/lock-grey.svg"></center><br>
-            <input type="text" placeholder="Enter Your Access Token" /><br><br><center><a class="go">SUBMIT</a></center><br>
+            <input type="text" placeholder="Enter Your Access Token" /><br><br><center><button type="button" class="go">Submit</button></center><br>
             <center><a class="how-link" href="">how to link?</a></center>
           </div>
 				  <div class="wiz-action-boxes text-center">
@@ -149,101 +149,156 @@
 	var guestRecordUrl='#';
 	var adminEmail='';
 	$('#loading').hide();
-	clickHandling();
-	Desk.canvas(function() {
-     
-      Desk.canvas.client.refreshSignedRequest(function(data) {
-        // Grab the response and save it to a variable.
-        var signedRequest = data.payload.response;
-        console.log(signedRequest);
-        // Base64-decode the second part of the signed request.
-        var decodedRequest = Desk.canvas.decode(signedRequest.split('.')[1]);
-        // The result is a JSON representation of the context. Let's parse that into a Javascript object.
-        var contextObj = JSON.parse(decodedRequest);
-        context=signedRequest;
+	$(".lock-box").hide();
 
-        Desk.canvas.client.signedrequest(contextObj);
-      	email = contextObj.context.user.email;
-      	agentEmail = contextObj.context.user.email;
-	  
-      var userUrl      = contextObj.context.links.userUrl;//contextObj.context.environment.case.url + '/replies/draft'
-      ticketId=contextObj.context.environment.case.id;
-      domain=contextObj.context.organization.name;
-            console.log(userUrl);
-              Desk.canvas.client.ajax(userUrl, {
-                client: contextObj.client,
-                method: 'GET',
-                success: function(rsp) {
-                  console.log(rsp);
-                  var groupUrl=rsp.payload._links.groups.href;
-                  console.log(groupUrl);
-                  Desk.canvas.client.ajax(groupUrl, {
-                    client: contextObj.client,
-                    method: 'GET',
-                    success: function(rsp) {
-                      console.log(rsp);
-                      var userUrl=rsp.payload._embedded.entries[0]._links.users.href;
-                      console.log(userUrl);
-                      Desk.canvas.client.ajax(userUrl, {
-                        client: contextObj.client,
-                        method: 'GET',
-                        success: function(rsp) {
-                          console.log(rsp);
-                          var users=rsp.payload._embedded.entries;
-                          for (var i = 0; i < users.length; i++) 
-                          {
-                            console.log(users[i].email);
-                            var user = {email: users[i].email,verified: users[i].email_verified,name: users[i].name,level: users[i].level};
-                            	productUsers.push(user);
-                          }
-                          authorize();
-                          getTicketVideoURL();
-                          clickHandling();
-                        }
-                      });
-
-                    }
-                  });    
-                }
-             });
-
-		});
-
-    });   
+	checkUserKeys();
+	
+	   
 
 	$('.show-library').on('click', fetchVideos);
     $('.show-library').on('click', closeVideoPanel);
     $('#hippo-video-ticket-link').on('click',insertTicketVideoLink);
+    $('.go').on('click',updateUserDetails);
     $('.go-back').on('click', closelibraryPanel);
     $('.error-box').hide();
     $('.info-box').hide();
       
-      
+    function checkUserKeys()
+    {
+    	Desk.canvas(function() {
+     
+	      Desk.canvas.client.refreshSignedRequest(function(data) {
+	        // Grab the response and save it to a variable.
+	        var signedRequest = data.payload.response;
+	        console.log(signedRequest);
+	        // Base64-decode the second part of the signed request.
+	        var decodedRequest = Desk.canvas.decode(signedRequest.split('.')[1]);
+	        // The result is a JSON representation of the context. Let's parse that into a Javascript object.
+	        var contextObj = JSON.parse(decodedRequest);
+	        context=signedRequest;
 
-      function authorize() 
-      {
-        var options = { body: context,email: agentEmail,domain: productDomain,sync_agents: productUsers};
-        url = this.hippoDomain+"/api/sf_desk_signup.json";
-        $.post(url, options)
+	        Desk.canvas.client.signedrequest(contextObj);
+	      	email = contextObj.context.user.email;
+	      	agentEmail = contextObj.context.user.email;
+	      	isTokenUpdated(signedRequest,email);
+
+	      	})});
+    }
+    function updateUserDetails()
+    {
+    	Desk.canvas(function() {
+     
+	      Desk.canvas.client.refreshSignedRequest(function(data) {
+	        // Grab the response and save it to a variable.
+	        var signedRequest = data.payload.response;
+	        console.log(signedRequest);
+	        // Base64-decode the second part of the signed request.
+	        var decodedRequest = Desk.canvas.decode(signedRequest.split('.')[1]);
+	        // The result is a JSON representation of the context. Let's parse that into a Javascript object.
+	        var contextObj = JSON.parse(decodedRequest);
+	        context=signedRequest;
+
+	        Desk.canvas.client.signedrequest(contextObj);
+	      	email = contextObj.context.user.email;
+	      	agentEmail = contextObj.context.user.email;
+
+		  
+	      var userUrl      = contextObj.context.links.userUrl;//contextObj.context.environment.case.url + '/replies/draft'
+	      ticketId=contextObj.context.environment.case.id;
+	      domain=contextObj.context.organization.name;
+	            console.log(userUrl);
+	              Desk.canvas.client.ajax(userUrl, {
+	                client: contextObj.client,
+	                method: 'GET',
+	                success: function(rsp) {
+	                  console.log(rsp);
+	                  var groupUrl=rsp.payload._links.groups.href;
+	                  console.log(groupUrl);
+	                  Desk.canvas.client.ajax(groupUrl, {
+	                    client: contextObj.client,
+	                    method: 'GET',
+	                    success: function(rsp) {
+	                      console.log(rsp);
+	                      var userUrl=rsp.payload._embedded.entries[0]._links.users.href;
+	                      console.log(userUrl);
+	                      Desk.canvas.client.ajax(userUrl, {
+	                        client: contextObj.client,
+	                        method: 'GET',
+	                        success: function(rsp) {
+	                          console.log(rsp);
+	                          var users=rsp.payload._embedded.entries;
+	                          for (var i = 0; i < users.length; i++) 
+	                          {
+	                            console.log(users[i].email);
+	                            var user = {email: users[i].email,verified: users[i].email_verified,name: users[i].name,level: users[i].level};
+	                            	productUsers.push(user);
+	                          }
+	                          authorize();
+	                          getTicketVideoURL();
+	                          clickHandling();
+	                        }
+	                      });
+
+	                    }
+	                  });    
+	                }
+	             });
+
+			});
+
+	    });
+    }
+    
+    function isTokenUpdated(context,email)
+    {
+      var options = { body : context,email : email};
+      
+      var url = this.domain+'/api/user/is_valid_key.json';
+
+      $.post(url, options,false)
           .done(function(data){
-            var parsedResponse = JSON.parse(data.response);
-            if(parsedResponse.status == false)
+            var data = JSON.parse(data.response);
+            if(data.status)
             {
-            	self.handleWidgetError("There seems to be an error. Contact Hippo Video support.");
-            } 
-            else 
+            	$(".lock-box").hide();
+            	updateUserDetails();
+            }
+            else
             {
-	            self.authToken = response.auth_token;
-	            self.clickHandling(self.authToken);
-	            self.getGuestUrl(self.authToken);
+            	$(".lock-box").show();
             }
           })
           .fail(function(err){
             if(err){
-            	self.handleWidgetError("There seems to be an error. Contact Hippo Video support.");
+			$(".lock-box").show();
             }
-          });     
-      }
+        });
+    }
+
+	  function authorize() 
+	  {
+	    var options = { body: context,email: agentEmail,domain: productDomain,sync_agents: productUsers,api_key: desk_api_key};
+	    url = this.hippoDomain+"/api/sf_desk_signup.json";
+	    $.post(url, options)
+	      .done(function(data){
+	        var parsedResponse = JSON.parse(data.response);
+	        if(parsedResponse.status == false)
+	        {
+	        	self.handleWidgetError("There seems to be an error. Contact Hippo Video support.");
+	        } 
+	        else 
+	        {
+	            self.authToken = response.auth_token;
+	            self.clickHandling(self.authToken);
+	            self.getGuestUrl(self.authToken);
+	        }
+	      })
+	      .fail(function(err){
+	        if(err){
+	        	self.handleWidgetError("There seems to be an error. Contact Hippo Video support.");
+	        }
+	      });     
+	  }
 
       function clickHandling(authToken)
       {
@@ -372,7 +427,7 @@
 			var guestCopyLink = $('#guest-copy-link');
 			guestCopyLink.attr('value', '');
             }
-          });
+        });
 
    }
 
