@@ -181,6 +181,26 @@
 	      	email = contextObj.context.user.email;
 	      	agentEmail = contextObj.context.user.email;
 	      	isTokenUpdated(signedRequest,email);
+
+	      	})});
+    }
+    function updateUserDetails()
+    {
+     
+	      Desk.canvas.client.refreshSignedRequest(function(data) {
+	        // Grab the response and save it to a variable.
+	        var signedRequest = data.payload.response;
+	        console.log(signedRequest);
+	        // Base64-decode the second part of the signed request.
+	        var decodedRequest = Desk.canvas.decode(signedRequest.split('.')[1]);
+	        // The result is a JSON representation of the context. Let's parse that into a Javascript object.
+	        var contextObj = JSON.parse(decodedRequest);
+	        context=signedRequest;
+
+	        Desk.canvas.client.signedrequest(contextObj);
+	      	email = contextObj.context.user.email;
+	      	agentEmail = contextObj.context.user.email;
+
 		  
 	      var userUrl      = contextObj.context.links.userUrl;//contextObj.context.environment.case.url + '/replies/draft'
 	      ticketId=contextObj.context.environment.case.id;
@@ -212,7 +232,9 @@
 	                            var user = {email: users[i].email,verified: users[i].email_verified,name: users[i].name,level: users[i].level};
 	                            	productUsers.push(user);
 	                          }
-	                          
+	                          authorize();
+	                          getTicketVideoURL();
+	                          clickHandling();
 	                        }
 	                      });
 
@@ -223,11 +245,6 @@
 
 			});
 
-	  });
-    }
-    function updateUserDetails()
-    {
-    	authorize();
     }
     
     function isTokenUpdated(context,email)
@@ -272,8 +289,6 @@
 	            self.authToken = response.auth_token;
 	            self.clickHandling(self.authToken);
 	            self.getGuestUrl(self.authToken);
-	            self.getTicketVideoURL();
-	            self.clickHandling();
 	        }
 	      })
 	      .fail(function(err){
