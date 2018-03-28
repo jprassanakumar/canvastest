@@ -41,6 +41,8 @@ app.post('/', function (req, res) {
     //res.send("authentication failed");
   };
 */
+  console.log("printing post parameters")
+  console.log(req.body);
 	res.sendFile(path.join(views, '/index.html'));
   //res.sendFile(__dirname + 'public/views/app/index.html');
 
