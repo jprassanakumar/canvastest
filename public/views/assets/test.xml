@@ -1,6 +1,6 @@
 <cartridge_basiclti_link xmlns="http://www.imsglobal.org/xsd/imslticc_v1p0" xmlns:blti="http://www.imsglobal.org/xsd/imsbasiclti_v1p0" xmlns:lticm="http://www.imsglobal.org/xsd/imslticm_v1p0" xmlns:lticp="http://www.imsglobal.org/xsd/imslticp_v1p0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemalocation="http://www.imsglobal.org/xsd/imslticc_v1p0 http://www.imsglobal.org/xsd/lti/ltiv1p0/imslticc_v1p0.xsd http://www.imsglobal.org/xsd/imsbasiclti_v1p0 http://www.imsglobal.org/xsd/lti/ltiv1p0/imsbasiclti_v1p0.xsd http://www.imsglobal.org/xsd/imslticm_v1p0 http://www.imsglobal.org/xsd/lti/ltiv1p0/imslticm_v1p0.xsd http://www.imsglobal.org/xsd/imslticp_v1p0 http://www.imsglobal.org/xsd/lti/ltiv1p0/imslticp_v1p0.xsd">
 <blti:launch_url>
-https://your.planetestream.server/VLE/Canvas/Default.aspx
+https://testcanvastesting.herokuapp.com
 </blti:launch_url>
 <blti:title>Hippo</blti:title>
 <blti:custom>
@@ -16,7 +16,7 @@ A Planet eStream icon will be added to your text editor, allowing you to add Pla
 <lticm:options name="editor_button">
 <lticm:property name="enabled">true</lticm:property>
 <lticm:property name="icon_url">
-https://153891.apps.zdusercontent.com/153891/assets/1522133125-ae03cd8d375938422764f031d1a91995/logo-small.png
+https://testcanvastesting.herokuapp.com/views/assets/logo-small.png
 </lticm:property>
 <lticm:property name="selection_width">800</lticm:property>
 <lticm:property name="selection_height">650</lticm:property>
