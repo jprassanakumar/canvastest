@@ -22,6 +22,7 @@ app.get('/', function (req, res) {
 
 app.post('/', function (req, res) {
 
+/*
 	var shared = "YOUR SHARED KEY";
   // Grab signed request
   var signed_req = req.body.signed_request;
@@ -39,7 +40,7 @@ app.post('/', function (req, res) {
   } else {
     //res.send("authentication failed");
   };
-
+*/
 	res.sendFile(path.join(views, '/index.html'));
   //res.sendFile(__dirname + 'public/views/app/index.html');
 
